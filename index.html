@@ -848,7 +848,7 @@
                 `Terdapat kesalahan input kode AWB / SKU (${typeCorrect} dari 15 field tepat). Riskan memicu salah kirim barang.`;
 
             const excelEvalText = excelScore >= 75 ? 
-                "Memahami perhitungan matematika stok masuk-keluar dan rumus VLOOKUP WMS dengan baik." : 
+                "Memahami perhitungan matematika stok masuk-keluar dan rumus VLOOKUP FMS dengan baik." : 
                 "Kurang menguasai perhitungan logika stok atau rumus dasar Excel gudang.";
 
             const emailEvalText = emailScore >= 80 ? 
@@ -926,7 +926,7 @@
 
                 if (result.success) {
                     alertBox.className = "my-4 p-4 rounded-lg text-sm font-medium bg-emerald-100 text-emerald-800 border border-emerald-300";
-                    alertBox.innerHTML = `<i class="fa-solid fa-circle-check"></i> <strong>Berhasil!</strong> Hasil tes kandidat <strong>${data.name}</strong> telah terkirim ke email Anda.`;
+                    alertBox.innerHTML = `<i class="fa-solid fa-circle-check"></i> <strong>Berhasil!</strong> Hasil tes kandidat <strong>${data.name}</strong> telah terkirim ke email HR.`;
                 } else {
                     throw new Error(result.message || "Gagal mengirim data.");
                 }
