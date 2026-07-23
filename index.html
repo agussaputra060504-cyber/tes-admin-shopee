@@ -54,7 +54,7 @@
         <div class="max-w-7xl mx-auto px-4 flex justify-between overflow-x-auto custom-scrollbar">
             <button type="button" onclick="switchStep(1)" id="tab-btn-1" class="tab-btn active px-4 py-3 flex items-center gap-2 whitespace-nowrap text-sm text-slate-600 hover:text-orange-600">
                 <span class="w-6 h-6 rounded-full bg-slate-200 text-slate-700 text-xs flex items-center justify-center font-bold">1</span>
-                Data Diri
+                Data Diri & Pemberitahuan
             </button>
             <button type="button" onclick="switchStep(2)" id="tab-btn-2" class="tab-btn px-4 py-3 flex items-center gap-2 whitespace-nowrap text-sm text-slate-600 hover:text-orange-600">
                 <span class="w-6 h-6 rounded-full bg-slate-200 text-slate-700 text-xs flex items-center justify-center font-bold">2</span>
@@ -82,16 +82,51 @@
     <!-- Main Content Area -->
     <main class="max-w-7xl mx-auto px-4 py-6 flex-grow w-full">
 
-        <!-- STEP 1: REGISTRASI KANDIDAT -->
+        <!-- STEP 1: REGISTRASI KANDIDAT & PEMBERITAHUAN JOBDESK -->
         <section id="step-1" class="step-content space-y-6">
-            <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-200 max-w-2xl mx-auto">
-                <div class="border-b border-slate-100 pb-4 mb-4 flex items-center gap-3">
+            <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-200 max-w-3xl mx-auto space-y-6">
+                <div class="border-b border-slate-100 pb-4 flex items-center gap-3">
                     <div class="w-10 h-10 rounded-full bg-orange-100 text-orange-600 flex items-center justify-center text-lg font-bold">
                         <i class="fa-solid fa-id-card"></i>
                     </div>
                     <div>
                         <h2 class="text-xl font-bold text-slate-800">Identitas Pelamar Admin Gudang Shopee</h2>
-                        <p class="text-sm text-slate-500">Lengkapi informasi diri sebelum memulai ujian praktik laptop.</p>
+                        <p class="text-sm text-slate-500">Lengkapi informasi diri dan pahami jobdesk DW Admin sebelum memulai ujian.</p>
+                    </div>
+                </div>
+
+                <!-- Box Pemberitahuan Jobdesk DW Admin -->
+                <div class="bg-slate-900 text-slate-100 p-5 rounded-xl shadow-md border border-slate-800 space-y-3">
+                    <div class="flex items-center gap-2 text-orange-400 font-bold border-b border-slate-800 pb-2">
+                        <i class="fa-solid fa-bullhorn text-lg"></i>
+                        <h3 class="text-sm tracking-wide uppercase">Pemberitahuan Jobdesk DW Admin & Requirements</h3>
+                    </div>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs pt-1">
+                        <div>
+                            <p class="font-semibold text-amber-300 mb-1.5 flex items-center gap-1.5">
+                                <i class="fa-solid fa-list-check"></i> Tanggung Jawab Operasional:
+                            </p>
+                            <ul class="list-disc pl-4 space-y-1 text-slate-300">
+                                <li>Rekap Asset In & Out</li>
+                                <li>Scan Istirahat</li>
+                                <li>Scan Roster</li>
+                                <li>Input Pemakaian Asset</li>
+                                <li>Stock Opname Asset (Perhitungan Stock Asset)</li>
+                                <li>Membackup kerjaan Admin Besarnya ketika sedang sibuk</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <p class="font-semibold text-amber-300 mb-1.5 flex items-center gap-1.5">
+                                <i class="fa-solid fa-user-check"></i> Kualifikasi & Sikap Kerja:
+                            </p>
+                            <ul class="list-disc pl-4 space-y-1 text-slate-300">
+                                <li>Good Attendance (Kehadiran Sangat Baik)</li>
+                                <li>Good Attitude (Sikap & Etika Kerja Baik)</li>
+                                <li>Good Performance (Kinerja Optimal)</li>
+                                <li>Bisa Bekerja Di Bawah Tekanan</li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
 
@@ -109,6 +144,7 @@
                         <div>
                             <label class="block text-xs font-semibold uppercase text-slate-600 mb-1">Pilihan Divisi / Posisi</label>
                             <select id="cand-role" class="w-full border border-slate-300 p-2.5 rounded-lg text-sm focus:ring-2 focus:ring-orange-500 outline-none">
+                                <option value="DW Admin / Asset Admin">DW Admin / Asset Admin</option>
                                 <option value="Admin Inventory/ All Area">Admin Inventory/ All Area</option>
                             </select>
                         </div>
