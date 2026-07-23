@@ -17,6 +17,28 @@
         .tab-btn.active { border-bottom: 3px solid #EE4D2D; color: #EE4D2D; font-weight: 700; }
         .custom-scrollbar::-webkit-scrollbar { width: 6px; height: 6px; }
         .custom-scrollbar::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+        
+        /* Form Identitas Pelamar Layout Grid */
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 16px;
+        }
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+        .form-group.full-width {
+            grid-column: span 2;
+        }
+        @media (max-width: 640px) {
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+            .form-group.full-width {
+                grid-column: span 1;
+            }
+        }
     </style>
 </head>
 <body class="bg-slate-100 min-h-screen text-slate-800 flex flex-col">
@@ -130,26 +152,67 @@
                     </div>
                 </div>
 
+                <!-- FORM IDENTITAS PELAMAR UPDATED -->
                 <form id="form-candidate" onsubmit="startTest(event)" class="space-y-4">
-                    <div>
-                        <label class="block text-xs font-semibold uppercase text-slate-600 mb-1">Nama Lengkap Kandidat *</label>
-                        <input type="text" id="cand-name" required placeholder="Contoh: Muhammad Rizky" class="w-full border border-slate-300 p-2.5 rounded-lg text-sm focus:ring-2 focus:ring-orange-500 outline-none">
-                    </div>
-                    
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <div>
-                            <label class="block text-xs font-semibold uppercase text-slate-600 mb-1">Nomor WhatsApp / HP *</label>
+                    <div class="form-grid">
+
+                        <!-- 1. OPS ID -->
+                        <div class="form-group">
+                            <label class="block text-xs font-semibold uppercase text-slate-600 mb-1">OPS ID KANDIDAT *</label>
+                            <input type="text" id="cand-opsid" required placeholder="Contoh: OPS-88921" class="w-full border border-slate-300 p-2.5 rounded-lg text-sm focus:ring-2 focus:ring-orange-500 outline-none">
+                        </div>
+
+                        <!-- 2. NAMA LENGKAP -->
+                        <div class="form-group">
+                            <label class="block text-xs font-semibold uppercase text-slate-600 mb-1">NAMA LENGKAP KANDIDAT *</label>
+                            <input type="text" id="cand-name" required placeholder="Contoh: Muhammad Rizky" class="w-full border border-slate-300 p-2.5 rounded-lg text-sm focus:ring-2 focus:ring-orange-500 outline-none">
+                        </div>
+
+                        <!-- 3. UMUR -->
+                        <div class="form-group">
+                            <label class="block text-xs font-semibold uppercase text-slate-600 mb-1">UMUR (TAHUN) *</label>
+                            <input type="number" id="cand-age" min="18" max="50" required placeholder="Contoh: 23" class="w-full border border-slate-300 p-2.5 rounded-lg text-sm focus:ring-2 focus:ring-orange-500 outline-none">
+                        </div>
+
+                        <!-- 4. NOMOR WHATSAPP -->
+                        <div class="form-group">
+                            <label class="block text-xs font-semibold uppercase text-slate-600 mb-1">NOMOR WHATSAPP / HP *</label>
                             <input type="tel" id="cand-phone" required placeholder="081234567890" class="w-full border border-slate-300 p-2.5 rounded-lg text-sm focus:ring-2 focus:ring-orange-500 outline-none">
                         </div>
-                        <div>
-                            <label class="block text-xs font-semibold uppercase text-slate-600 mb-1">Pilihan Divisi / Posisi</label>
-                            <select id="cand-role" class="w-full border border-slate-300 p-2.5 rounded-lg text-sm focus:ring-2 focus:ring-orange-500 outline-none">
-                                <option value="DW Admin / Asset Admin">Daily Worker Admin</option>
+
+                        <!-- 5. PENDIDIKAN TERAKHIR -->
+                        <div class="form-group">
+                            <label class="block text-xs font-semibold uppercase text-slate-600 mb-1">PENDIDIKAN TERAKHIR *</label>
+                            <select id="cand-education" required class="w-full border border-slate-300 p-2.5 rounded-lg text-sm focus:ring-2 focus:ring-orange-500 outline-none">
+                                <option value="" disabled selected>-- Pilih Pendidikan --</option>
+                                <option value="SMA/SMK">SMA / SMK Sederajat</option>
+                                <option value="D3">D3 (Diploma)</option>
+                                <option value="S1/D4">S1 / D4 (Sarjana)</option>
                             </select>
                         </div>
+
+                        <!-- 6. PILIHAN DIVISI -->
+                        <div class="form-group">
+                            <label class="block text-xs font-semibold uppercase text-slate-600 mb-1">PILIHAN DIVISI / POSISI *</label>
+                            <select id="cand-role" required class="w-full border border-slate-300 p-2.5 rounded-lg text-sm focus:ring-2 focus:ring-orange-500 outline-none">
+                                <option value="Daily Worker Admin">Daily Worker Admin</option>
+                                <option value="Admin Inbound">Admin Inbound</option>
+                                <option value="Admin Outbound">Admin Outbound</option>
+                                <option value="Admin Inventory / Stock Opname">Admin Inventory / Stock Opname</option>
+                                <option value="Admin Transport / FMS">Admin Transport / FMS</option>
+                            </select>
+                        </div>
+
+                        <!-- 7. LAMPIRAN FOTO IJAZAH -->
+                        <div class="form-group full-width">
+                            <label class="block text-xs font-semibold uppercase text-slate-600 mb-1">LAMPIRAN FOTO IJAZAH TERAKHIR (JPG/PNG/PDF) *</label>
+                            <input type="file" id="cand-ijazah" accept="image/*,.pdf" required class="w-full border border-slate-300 p-2.5 rounded-lg text-sm focus:ring-2 focus:ring-orange-500 outline-none">
+                            <small class="text-slate-500 text-[11px] mt-1">*Maksimal ukuran file 5MB. Pastikan foto atau dokumen terlihat jelas.</small>
+                        </div>
+
                     </div>
 
-                    <div class="bg-orange-50 p-4 rounded-lg border border-orange-200 text-xs text-orange-900 space-y-2">
+                    <div class="bg-orange-50 p-4 rounded-lg border border-orange-200 text-xs text-orange-900 space-y-2 mt-4">
                         <p class="font-bold flex items-center gap-1.5 text-orange-900">
                             <i class="fa-solid fa-circle-info"></i> Ketentuan Tes Operasional Laptop Gudang Shopee:
                         </p>
@@ -623,15 +686,15 @@
                 <!-- Candidate Metadata -->
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-4 my-6 bg-slate-50 p-4 rounded-lg border border-slate-200 text-sm">
                     <div>
-                        <span class="text-xs text-slate-500 block">Nama Pelamar:</span>
+                        <span class="text-xs text-slate-500 block">OPS ID / Nama Pelamar:</span>
                         <strong id="res-name" class="text-slate-800 text-base">--</strong>
                     </div>
                     <div>
-                        <span class="text-xs text-slate-500 block">No WhatsApp:</span>
+                        <span class="text-xs text-slate-500 block">No WhatsApp / Umur:</span>
                         <span id="res-phone" class="font-mono text-slate-700">--</span>
                     </div>
                     <div>
-                        <span class="text-xs text-slate-500 block">Posisi / Divisi:</span>
+                        <span class="text-xs text-slate-500 block">Posisi & Pendidikan:</span>
                         <span id="res-role" class="text-slate-700 font-semibold">--</span>
                     </div>
                 </div>
@@ -719,7 +782,7 @@
         var secondsElapsed = 0;
         var testStarted = false;
 
-        // Attach Event Listener setelah DOM Siap (Mencegah Bug Safari iOS)
+        // Attach Event Listener setelah DOM Siap
         document.addEventListener('DOMContentLoaded', function() {
             var submitBtn = document.getElementById('btn-submit-test');
             if(submitBtn) {
@@ -846,13 +909,17 @@
             );
 
             // Render Results
+            var opsid = document.getElementById('cand-opsid').value;
             var name = document.getElementById('cand-name').value;
+            var age = document.getElementById('cand-age').value;
             var phone = document.getElementById('cand-phone').value;
+            var education = document.getElementById('cand-education').value;
             var role = document.getElementById('cand-role').value;
+            var fileIjazah = document.getElementById('cand-ijazah').files[0] ? document.getElementById('cand-ijazah').files[0].name : "Ada";
 
-            document.getElementById('res-name').innerText = name;
-            document.getElementById('res-phone').innerText = phone;
-            document.getElementById('res-role').innerText = role;
+            document.getElementById('res-name').innerText = "[" + opsid + "] " + name;
+            document.getElementById('res-phone').innerText = phone + " (" + age + " thn)";
+            document.getElementById('res-role').innerText = role + " - " + education;
             
             var minsStr = String(Math.floor(secondsElapsed / 60));
             if(minsStr.length < 2) minsStr = '0' + minsStr;
@@ -907,9 +974,13 @@
 
             // Kirim ke Web3Forms
             sendResultsToEmail({
+                opsid: opsid,
                 name: name,
+                age: age,
                 phone: phone,
+                education: education,
                 role: role,
+                fileIjazah: fileIjazah,
                 timeTaken: timeTakenFormatted,
                 finalWeighted: finalWeighted,
                 gradeText: gradeText,
@@ -928,7 +999,7 @@
             switchStep(6);
         }
 
-        // Web3Forms AJAX standar (Kompatibel dengan Safari iOS)
+        // Web3Forms AJAX
         function sendResultsToEmail(data) {
             var alertBox = document.getElementById('email-status-alert');
             
@@ -936,11 +1007,15 @@
                 access_key: "aa218f2d-38e8-4864-9e16-d75abb2a3bfd",
                 subject: "[HASIL TES] Admin Gudang Shopee - " + data.name + " (" + data.finalWeighted + "%)",
                 from_name: "Sistem Seleksi Admin Shopee",
-                "1. Nama Pelamar": data.name,
-                "2. No WhatsApp": data.phone,
-                "3. Posisi / Divisi": data.role,
-                "4. Durasi Pengerjaan": data.timeTaken,
-                "5. SKOR AKHIR": data.finalWeighted + "% (" + data.gradeText + ")",
+                "1. OPS ID": data.opsid,
+                "2. Nama Pelamar": data.name,
+                "3. Umur": data.age + " Tahun",
+                "4. No WhatsApp": data.phone,
+                "5. Pendidikan Terakhir": data.education,
+                "6. Posisi / Divisi": data.role,
+                "7. Lampiran Ijazah": data.fileIjazah,
+                "8. Durasi Pengerjaan": data.timeTaken,
+                "9. SKOR AKHIR": data.finalWeighted + "% (" + data.gradeText + ")",
                 "--- SKOR PER MODUL ---": "------------------------------------",
                 "Modul 1 (Shortcut & OS)": data.scScore + " / 100",
                 "Modul 2 (Input Resi & Bin)": data.typeScore + " / 100",
