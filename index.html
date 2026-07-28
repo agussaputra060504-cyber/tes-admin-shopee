@@ -656,7 +656,7 @@
                         </label>
                         <div class="flex items-center gap-2">
                             <span class="text-xs font-bold text-slate-500">Rp</span>
-                            <input type="number" id="ex-asset-val" placeholder="Contoh: 1525000" class="input-cell max-w-xs font-mono">
+                            <input type="text" id="ex-asset-val" placeholder="Contoh: 1525000" class="input-cell max-w-xs font-mono">
                         </div>
                         <p class="text-[11px] text-slate-400 mt-1">Petunjuk: Total (Damaged x Harga Jual) dari ketiga produk.</p>
                     </div>
@@ -844,8 +844,8 @@
     </main>
 
     <script>
-        // GANTI DENGAN URL WEB APP GOOGLE APPS SCRIPT ANDA
-        const GAS_WEB_APP_URL = "https://script.google.com/macros/s/AKfycbzyhPLAfwClpbw8Fu3SsyMkqAWe6LyjC29jDOjpZ_a7AewJa02s_MLIFHxQAmMTzL1l/exec";
+        // URL WEB APP GOOGLE APPS SCRIPT
+        const GAS_WEB_APP_URL = "https://script.google.com/macros/s/AKfycbzHcRYgw-8pluQ-6-DzEOMEcHd-IHB1mtHf3fjhl23J-LxhS_tcJxobHMh9oiHqKbsN/exec";
 
         // State Variables
         var currentStep = 1;
@@ -942,15 +942,18 @@
 
         // Calculate Scores & Generate HR Report
         async function finishAndGenerateReport() {
-            if(timerInterval) clearInterval(timerInterval);
-
             var submitBtn = document.getElementById('btn-submit-test');
             var submitText = document.getElementById('btn-submit-text');
-            if(submitBtn) submitBtn.disabled = true;
+            if(submitBtn) {
+                submitBtn.disabled = true;
+                submitBtn.classList.add('opacity-50', 'cursor-not-allowed');
+            }
             if(submitText) submitText.innerText = "Mengirim Data Hasil Ujian...";
 
+            if(timerInterval) clearInterval(timerInterval);
+
             // -------------------------------------------------------------
-            // MODUL 1: SHORTCUT & FILE OS
+            // MODUL 1: SHORTCUT & FILE OS (8 Soal, @12.5 Poin)
             // -------------------------------------------------------------
             var ans_sc1 = document.getElementById('sc-1').value;
             var ans_sc2 = document.getElementById('sc-2').value;
@@ -972,74 +975,74 @@
             if(ans_os3 === 'Manifest_SPX_Cikarang_22072026') scScore += 12.5;
 
             // -------------------------------------------------------------
-            // MODUL 2: DATA ENTRY AWB / SKU / BIN (5 ROWS - TRAP CHARACTERS)
+            // MODUL 2: DATA ENTRY AWB / SKU / BIN (5 ROWS - CASE INSENSITIVE)
             // -------------------------------------------------------------
             var typeCorrect = 0;
             var totalTypeFields = 25; // 5 rows x 5 fields
 
             // Row 1
-            var ans_awb1 = document.getElementById('type-awb-1').value.trim();
-            var ans_sku1 = document.getElementById('type-sku-1').value.trim();
-            var ans_bin1 = document.getElementById('type-bin-1').value.trim();
-            var ans_courier1 = document.getElementById('type-courier-1').value.trim();
+            var ans_awb1 = document.getElementById('type-awb-1').value.trim().toUpperCase();
+            var ans_sku1 = document.getElementById('type-sku-1').value.trim().toUpperCase();
+            var ans_bin1 = document.getElementById('type-bin-1').value.trim().toUpperCase();
+            var ans_courier1 = document.getElementById('type-courier-1').value.trim().toLowerCase();
             var ans_qty1 = document.getElementById('type-qty-1').value;
 
             if(ans_awb1 === 'SPXID001O998-XL') typeCorrect++;
             if(ans_sku1 === 'SHP-FSH-001O-BLK') typeCorrect++;
             if(ans_bin1 === 'BIN-A01-02-O') typeCorrect++;
-            if(ans_courier1.toLowerCase().indexOf('shopee') !== -1) typeCorrect++;
+            if(ans_courier1.indexOf('shopee') !== -1) typeCorrect++;
             if(ans_qty1 == 12) typeCorrect++;
 
             // Row 2
-            var ans_awb2 = document.getElementById('type-awb-2').value.trim();
-            var ans_sku2 = document.getElementById('type-sku-2').value.trim();
-            var ans_bin2 = document.getElementById('type-bin-2').value.trim();
-            var ans_courier2 = document.getElementById('type-courier-2').value.trim();
+            var ans_awb2 = document.getElementById('type-awb-2').value.trim().toUpperCase();
+            var ans_sku2 = document.getElementById('type-sku-2').value.trim().toUpperCase();
+            var ans_bin2 = document.getElementById('type-bin-2').value.trim().toUpperCase();
+            var ans_courier2 = document.getElementById('type-courier-2').value.trim().toLowerCase();
             var ans_qty2 = document.getElementById('type-qty-2').value;
 
             if(ans_awb2 === 'JP288102938491-I') typeCorrect++;
             if(ans_sku2 === 'SHP-ELC-881I-WHT') typeCorrect++;
             if(ans_bin2 === 'BIN-B04-01-I') typeCorrect++;
-            if(ans_courier2.toLowerCase().indexOf('j&t') !== -1) typeCorrect++;
+            if(ans_courier2.indexOf('j&t') !== -1 || ans_courier2.indexOf('jnt') !== -1) typeCorrect++;
             if(ans_qty2 == 1) typeCorrect++;
 
             // Row 3
-            var ans_awb3 = document.getElementById('type-awb-3').value.trim();
-            var ans_sku3 = document.getElementById('type-sku-3').value.trim();
-            var ans_bin3 = document.getElementById('type-bin-3').value.trim();
-            var ans_courier3 = document.getElementById('type-courier-3').value.trim();
+            var ans_awb3 = document.getElementById('type-awb-3').value.trim().toUpperCase();
+            var ans_sku3 = document.getElementById('type-sku-3').value.trim().toUpperCase();
+            var ans_bin3 = document.getElementById('type-bin-3').value.trim().toUpperCase();
+            var ans_courier3 = document.getElementById('type-courier-3').value.trim().toLowerCase();
             var ans_qty3 = document.getElementById('type-qty-3').value;
 
             if(ans_awb3 === 'AK009812739281-O') typeCorrect++;
             if(ans_sku3 === 'SHP-HOM-120O-RED') typeCorrect++;
             if(ans_bin3 === 'BIN-C02-05-O') typeCorrect++;
-            if(ans_courier3.toLowerCase().indexOf('anteraja') !== -1) typeCorrect++;
+            if(ans_courier3.indexOf('anteraja') !== -1) typeCorrect++;
             if(ans_qty3 == 5) typeCorrect++;
 
             // Row 4
-            var ans_awb4 = document.getElementById('type-awb-4').value.trim();
-            var ans_sku4 = document.getElementById('type-sku-4').value.trim();
-            var ans_bin4 = document.getElementById('type-bin-4').value.trim();
-            var ans_courier4 = document.getElementById('type-courier-4').value.trim();
+            var ans_awb4 = document.getElementById('type-awb-4').value.trim().toUpperCase();
+            var ans_sku4 = document.getElementById('type-sku-4').value.trim().toUpperCase();
+            var ans_bin4 = document.getElementById('type-bin-4').value.trim().toUpperCase();
+            var ans_courier4 = document.getElementById('type-courier-4').value.trim().toLowerCase();
             var ans_qty4 = document.getElementById('type-qty-4').value;
 
             if(ans_awb4 === 'ID210099881122-A') typeCorrect++;
             if(ans_sku4 === 'SHP-BTY-990O-PNK') typeCorrect++;
             if(ans_bin4 === 'BIN-D05-11-I') typeCorrect++;
-            if(ans_courier4.toLowerCase().indexOf('id express') !== -1) typeCorrect++;
+            if(ans_courier4.indexOf('id express') !== -1 || ans_courier4.indexOf('idxpress') !== -1) typeCorrect++;
             if(ans_qty4 == 8) typeCorrect++;
 
             // Row 5
-            var ans_awb5 = document.getElementById('type-awb-5').value.trim();
-            var ans_sku5 = document.getElementById('type-sku-5').value.trim();
-            var ans_bin5 = document.getElementById('type-bin-5').value.trim();
-            var ans_courier5 = document.getElementById('type-courier-5').value.trim();
+            var ans_awb5 = document.getElementById('type-awb-5').value.trim().toUpperCase();
+            var ans_sku5 = document.getElementById('type-sku-5').value.trim().toUpperCase();
+            var ans_bin5 = document.getElementById('type-bin-5').value.trim().toUpperCase();
+            var ans_courier5 = document.getElementById('type-courier-5').value.trim().toLowerCase();
             var ans_qty5 = document.getElementById('type-qty-5').value;
 
             if(ans_awb5 === 'NLID0192837465-B') typeCorrect++;
             if(ans_sku5 === 'SHP-KID-771I-BLU') typeCorrect++;
             if(ans_bin5 === 'BIN-E08-09-O') typeCorrect++;
-            if(ans_courier5.toLowerCase().indexOf('ninja') !== -1) typeCorrect++;
+            if(ans_courier5.indexOf('ninja') !== -1) typeCorrect++;
             if(ans_qty5 == 3) typeCorrect++;
 
             var typeScore = Math.round((typeCorrect / totalTypeFields) * 100);
@@ -1047,18 +1050,16 @@
             // -------------------------------------------------------------
             // MODUL 3: EXCEL CAMPAIGN ADVANCED
             // -------------------------------------------------------------
-            // Row 1: 80 + 30 - 85 - 10 = 15 (Safety Limit = 20 -> CRITICAL RESTOCK)
-            // Row 2: 150 + 80 - 110 - 5 = 115 (Safety Limit = 30, > 100 -> OVERSTOCK)
-            // Row 3: 40 + 10 - 38 - 2 = 10 (Safety Limit = 15 -> CRITICAL RESTOCK)
-            // Total Damaged Asset: (10 * 120000) + (5 * 45000) + (2 * 50000) = 1.200.000 + 225.000 + 100.000 = 1.525.000
-
             var ans_ex_stok1 = document.getElementById('ex-stok-1').value;
             var ans_ex_status1 = document.getElementById('ex-status-1').value;
             var ans_ex_stok2 = document.getElementById('ex-stok-2').value;
             var ans_ex_status2 = document.getElementById('ex-status-2').value;
             var ans_ex_stok3 = document.getElementById('ex-stok-3').value;
             var ans_ex_status3 = document.getElementById('ex-status-3').value;
-            var ans_ex_asset = document.getElementById('ex-asset-val').value;
+            
+            // Format Sanitization untuk Input Rupiah
+            var raw_asset = document.getElementById('ex-asset-val').value;
+            var clean_asset = raw_asset.replace(/[^0-9]/g, '');
             var ans_ex_formula = document.getElementById('ex-formula-q').value;
 
             var excelCorrect = 0;
@@ -1068,7 +1069,7 @@
             if(ans_ex_status2 === 'OVERSTOCK') excelCorrect += 1;
             if(ans_ex_stok3 == 10) excelCorrect += 1;
             if(ans_ex_status3 === 'CRITICAL RESTOCK') excelCorrect += 1;
-            if(ans_ex_asset == 1525000) excelCorrect += 1;
+            if(clean_asset === '1525000') excelCorrect += 1;
             if(ans_ex_formula === 'INDEX_MATCH') excelCorrect += 1;
 
             var excelScore = Math.round((excelCorrect / 8) * 100);
@@ -1203,7 +1204,7 @@
                 ans_ex1: "Stok: " + ans_ex_stok1 + " (Kunci: 15) | Status: " + ans_ex_status1 + " (Kunci: CRITICAL RESTOCK)",
                 ans_ex2: "Stok: " + ans_ex_stok2 + " (Kunci: 115) | Status: " + ans_ex_status2 + " (Kunci: OVERSTOCK)",
                 ans_ex3: "Stok: " + ans_ex_stok3 + " (Kunci: 10) | Status: " + ans_ex_status3 + " (Kunci: CRITICAL RESTOCK)",
-                ans_ex_asset: ans_ex_asset + (ans_ex_asset == 1525000 ? ' [BENAR]' : ' [SALAH - Kunci: 1525000]'),
+                ans_ex_asset: raw_asset + (clean_asset === '1525000' ? ' [BENAR]' : ' [SALAH - Kunci: 1525000]'),
                 ans_ex_formula: ans_ex_formula + (ans_ex_formula === 'INDEX_MATCH' ? ' [BENAR]' : ' [SALAH - Kunci: INDEX_MATCH]'),
 
                 emailSubj: emailSubj,
@@ -1231,6 +1232,15 @@
             .then(function() {
                 alertBox.className = "my-4 p-4 rounded-lg text-sm font-medium bg-emerald-100 text-emerald-800 border border-emerald-300";
                 alertBox.innerHTML = '<i class="fa-solid fa-circle-check"></i> <strong>Berhasil!</strong> Hasil tes kandidat <strong>' + data.name + '</strong> telah berhasil tersimpan di Google Sheets.';
+                
+                // Un-lock submit button
+                var submitBtn = document.getElementById('btn-submit-test');
+                var submitText = document.getElementById('btn-submit-text');
+                if(submitBtn) {
+                    submitBtn.disabled = false;
+                    submitBtn.classList.remove('opacity-50', 'cursor-not-allowed');
+                }
+                if(submitText) submitText.innerText = "Selesaikan Tes & Buat Hasil HR";
             })
             .catch(function(error) {
                 console.error("Error Transmitting Data: ", error);
