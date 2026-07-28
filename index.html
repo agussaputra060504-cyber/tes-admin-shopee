@@ -845,55 +845,99 @@
             if(submitBtn) submitBtn.disabled = true;
             if(submitText) submitText.innerText = "Mengirim Data Hasil Ujian...";
 
-            // 1. Shortcut & OS Score
-            var scScore = 0;
-            if(document.getElementById('sc-1').value === 'Ctrl+F') scScore += 12.5;
-            if(document.getElementById('sc-2').value === 'Alt+Tab') scScore += 12.5;
-            if(document.getElementById('sc-3').value === 'Ctrl+V') scScore += 12.5;
-            if(document.getElementById('sc-4').value === 'Ctrl+A') scScore += 12.5;
-            if(document.getElementById('sc-5').value === 'Win+Shift+S') scScore += 12.5;
-            if(document.getElementById('os-1').value === '.zip') scScore += 12.5;
-            if(document.getElementById('os-2').value === '.xlsx / .csv') scScore += 12.5;
-            if(document.getElementById('os-3').value === 'Manifest_SPX_Cikarang_22072026') scScore += 12.5;
+            // -------------------------------------------------------------
+            // MODUL 1: SHORTCUT & FILE OS
+            // -------------------------------------------------------------
+            var ans_sc1 = document.getElementById('sc-1').value;
+            var ans_sc2 = document.getElementById('sc-2').value;
+            var ans_sc3 = document.getElementById('sc-3').value;
+            var ans_sc4 = document.getElementById('sc-4').value;
+            var ans_sc5 = document.getElementById('sc-5').value;
+            var ans_os1 = document.getElementById('os-1').value;
+            var ans_os2 = document.getElementById('os-2').value;
+            var ans_os3 = document.getElementById('os-3').value;
 
-            // 2. Data Entry AWB/SKU/Bin Score
+            var scScore = 0;
+            if(ans_sc1 === 'Ctrl+F') scScore += 12.5;
+            if(ans_sc2 === 'Alt+Tab') scScore += 12.5;
+            if(ans_sc3 === 'Ctrl+V') scScore += 12.5;
+            if(ans_sc4 === 'Ctrl+A') scScore += 12.5;
+            if(ans_sc5 === 'Win+Shift+S') scScore += 12.5;
+            if(ans_os1 === '.zip') scScore += 12.5;
+            if(ans_os2 === '.xlsx / .csv') scScore += 12.5;
+            if(ans_os3 === 'Manifest_SPX_Cikarang_22072026') scScore += 12.5;
+
+            // -------------------------------------------------------------
+            // MODUL 2: DATA ENTRY AWB / SKU / BIN
+            // -------------------------------------------------------------
             var typeCorrect = 0;
             var totalTypeFields = 15;
 
-            if(document.getElementById('type-awb-1').value.trim().toUpperCase() === 'SPXID0399812345') typeCorrect++;
-            if(document.getElementById('type-sku-1').value.trim().toUpperCase() === 'SHOPEE-FASH-01') typeCorrect++;
-            if(document.getElementById('type-bin-1').value.trim().toUpperCase() === 'BIN-A-01-02') typeCorrect++;
-            if(document.getElementById('type-courier-1').value.trim().toLowerCase().indexOf('shopee') !== -1) typeCorrect++;
-            if(document.getElementById('type-qty-1').value == 3) typeCorrect++;
+            var ans_awb1 = document.getElementById('type-awb-1').value.trim();
+            var ans_sku1 = document.getElementById('type-sku-1').value.trim();
+            var ans_bin1 = document.getElementById('type-bin-1').value.trim();
+            var ans_courier1 = document.getElementById('type-courier-1').value.trim();
+            var ans_qty1 = document.getElementById('type-qty-1').value;
 
-            if(document.getElementById('type-awb-2').value.trim().toUpperCase() === 'JP288102938491') typeCorrect++;
-            if(document.getElementById('type-sku-2').value.trim().toUpperCase() === 'SHOPEE-ELEC-88') typeCorrect++;
-            if(document.getElementById('type-bin-2').value.trim().toUpperCase() === 'BIN-B-04-01') typeCorrect++;
-            if(document.getElementById('type-courier-2').value.trim().toLowerCase().indexOf('j&t') !== -1) typeCorrect++;
-            if(document.getElementById('type-qty-2').value == 1) typeCorrect++;
+            var ans_awb2 = document.getElementById('type-awb-2').value.trim();
+            var ans_sku2 = document.getElementById('type-sku-2').value.trim();
+            var ans_bin2 = document.getElementById('type-bin-2').value.trim();
+            var ans_courier2 = document.getElementById('type-courier-2').value.trim();
+            var ans_qty2 = document.getElementById('type-qty-2').value;
 
-            if(document.getElementById('type-awb-3').value.trim().toUpperCase() === 'AK009812739281') typeCorrect++;
-            if(document.getElementById('type-sku-3').value.trim().toUpperCase() === 'SHOPEE-HOME-12') typeCorrect++;
-            if(document.getElementById('type-bin-3').value.trim().toUpperCase() === 'BIN-C-02-05') typeCorrect++;
-            if(document.getElementById('type-courier-3').value.trim().toLowerCase().indexOf('anteraja') !== -1) typeCorrect++;
-            if(document.getElementById('type-qty-3').value == 5) typeCorrect++;
+            var ans_awb3 = document.getElementById('type-awb-3').value.trim();
+            var ans_sku3 = document.getElementById('type-sku-3').value.trim();
+            var ans_bin3 = document.getElementById('type-bin-3').value.trim();
+            var ans_courier3 = document.getElementById('type-courier-3').value.trim();
+            var ans_qty3 = document.getElementById('type-qty-3').value;
+
+            if(ans_awb1.toUpperCase() === 'SPXID0399812345') typeCorrect++;
+            if(ans_sku1.toUpperCase() === 'SHOPEE-FASH-01') typeCorrect++;
+            if(ans_bin1.toUpperCase() === 'BIN-A-01-02') typeCorrect++;
+            if(ans_courier1.toLowerCase().indexOf('shopee') !== -1) typeCorrect++;
+            if(ans_qty1 == 3) typeCorrect++;
+
+            if(ans_awb2.toUpperCase() === 'JP288102938491') typeCorrect++;
+            if(ans_sku2.toUpperCase() === 'SHOPEE-ELEC-88') typeCorrect++;
+            if(ans_bin2.toUpperCase() === 'BIN-B-04-01') typeCorrect++;
+            if(ans_courier2.toLowerCase().indexOf('j&t') !== -1) typeCorrect++;
+            if(ans_qty2 == 1) typeCorrect++;
+
+            if(ans_awb3.toUpperCase() === 'AK009812739281') typeCorrect++;
+            if(ans_sku3.toUpperCase() === 'SHOPEE-HOME-12') typeCorrect++;
+            if(ans_bin3.toUpperCase() === 'BIN-C-02-05') typeCorrect++;
+            if(ans_courier3.toLowerCase().indexOf('anteraja') !== -1) typeCorrect++;
+            if(ans_qty3 == 5) typeCorrect++;
 
             var typeScore = Math.round((typeCorrect / totalTypeFields) * 100);
 
-            // 3. Excel Campaign Logic Score
+            // -------------------------------------------------------------
+            // MODUL 3: EXCEL CAMPAIGN LOGIC
+            // -------------------------------------------------------------
+            var ans_ex_stok1 = document.getElementById('ex-stok-1').value;
+            var ans_ex_status1 = document.getElementById('ex-status-1').value;
+            var ans_ex_stok2 = document.getElementById('ex-stok-2').value;
+            var ans_ex_status2 = document.getElementById('ex-status-2').value;
+            var ans_ex_stok3 = document.getElementById('ex-stok-3').value;
+            var ans_ex_status3 = document.getElementById('ex-status-3').value;
+            var ans_ex_asset = document.getElementById('ex-asset-val').value;
+            var ans_ex_formula = document.getElementById('ex-formula-q').value;
+
             var excelCorrect = 0;
-            if(document.getElementById('ex-stok-1').value == 5) excelCorrect += 1;
-            if(document.getElementById('ex-status-1').value === 'Restock') excelCorrect += 1;
-            if(document.getElementById('ex-stok-2').value == 150) excelCorrect += 1;
-            if(document.getElementById('ex-status-2').value === 'Aman') excelCorrect += 1;
-            if(document.getElementById('ex-stok-3').value == 2) excelCorrect += 1;
-            if(document.getElementById('ex-status-3').value === 'Restock') excelCorrect += 1;
-            if(document.getElementById('ex-asset-val').value == 6750000) excelCorrect += 1;
-            if(document.getElementById('ex-formula-q').value === 'VLOOKUP') excelCorrect += 1;
+            if(ans_ex_stok1 == 5) excelCorrect += 1;
+            if(ans_ex_status1 === 'Restock') excelCorrect += 1;
+            if(ans_ex_stok2 == 150) excelCorrect += 1;
+            if(ans_ex_status2 === 'Aman') excelCorrect += 1;
+            if(ans_ex_stok3 == 2) excelCorrect += 1;
+            if(ans_ex_status3 === 'Restock') excelCorrect += 1;
+            if(ans_ex_asset == 6750000) excelCorrect += 1;
+            if(ans_ex_formula === 'VLOOKUP') excelCorrect += 1;
 
             var excelScore = Math.round((excelCorrect / 8) * 100);
 
-            // 4. Email SLA Score
+            // -------------------------------------------------------------
+            // MODUL 4: EMAIL SLA
+            // -------------------------------------------------------------
             var emailSubj = document.getElementById('email-subject').value.trim();
             var emailBody = document.getElementById('email-body').value.trim();
             var emailScore = 0;
@@ -908,7 +952,7 @@
                 (emailScore * 0.20)
             );
 
-            // Render Results
+            // Render Results di Halaman Website
             var opsid = document.getElementById('cand-opsid').value;
             var name = document.getElementById('cand-name').value;
             var age = document.getElementById('cand-age').value;
@@ -972,7 +1016,7 @@
             document.getElementById('eval-excel-text').innerText = excelEvalText;
             document.getElementById('eval-email-text').innerText = emailEvalText;
 
-            // Kirim ke Web3Forms
+            // Kirim Jawaban Detail ke Email via Web3Forms
             sendResultsToEmail({
                 opsid: opsid,
                 name: name,
@@ -992,6 +1036,27 @@
                 typeEvalText: typeEvalText,
                 excelEvalText: excelEvalText,
                 emailEvalText: emailEvalText,
+
+                // --- DETAIL JAWABAN KANDIDAT ---
+                ans_sc1: ans_sc1 + (ans_sc1 === 'Ctrl+F' ? ' [BENAR]' : ' [SALAH - Benar: Ctrl+F]'),
+                ans_sc2: ans_sc2 + (ans_sc2 === 'Alt+Tab' ? ' [BENAR]' : ' [SALAH - Benar: Alt+Tab]'),
+                ans_sc3: ans_sc3 + (ans_sc3 === 'Ctrl+V' ? ' [BENAR]' : ' [SALAH - Benar: Ctrl+V]'),
+                ans_sc4: ans_sc4 + (ans_sc4 === 'Ctrl+A' ? ' [BENAR]' : ' [SALAH - Benar: Ctrl+A]'),
+                ans_sc5: ans_sc5 + (ans_sc5 === 'Win+Shift+S' ? ' [BENAR]' : ' [SALAH - Benar: Win+Shift+S]'),
+                ans_os1: ans_os1 + (ans_os1 === '.zip' ? ' [BENAR]' : ' [SALAH - Benar: .zip]'),
+                ans_os2: ans_os2 + (ans_os2 === '.xlsx / .csv' ? ' [BENAR]' : ' [SALAH - Benar: .xlsx / .csv]'),
+                ans_os3: ans_os3 + (ans_os3 === 'Manifest_SPX_Cikarang_22072026' ? ' [BENAR]' : ' [SALAH - Benar: Manifest_SPX_Cikarang_22072026]'),
+
+                ans_pkg1: "AWB: " + ans_awb1 + " | SKU: " + ans_sku1 + " | BIN: " + ans_bin1 + " | Courier: " + ans_courier1 + " | Qty: " + ans_qty1,
+                ans_pkg2: "AWB: " + ans_awb2 + " | SKU: " + ans_sku2 + " | BIN: " + ans_bin2 + " | Courier: " + ans_courier2 + " | Qty: " + ans_qty2,
+                ans_pkg3: "AWB: " + ans_awb3 + " | SKU: " + ans_sku3 + " | BIN: " + ans_bin3 + " | Courier: " + ans_courier3 + " | Qty: " + ans_qty3,
+
+                ans_ex1: "Stok: " + ans_ex_stok1 + " (Kunci: 5) | Status: " + ans_ex_status1 + " (Kunci: Restock)",
+                ans_ex2: "Stok: " + ans_ex_stok2 + " (Kunci: 150) | Status: " + ans_ex_status2 + " (Kunci: Aman)",
+                ans_ex3: "Stok: " + ans_ex_stok3 + " (Kunci: 2) | Status: " + ans_ex_status3 + " (Kunci: Restock)",
+                ans_ex_asset: ans_ex_asset + (ans_ex_asset == 6750000 ? ' [BENAR]' : ' [SALAH - Kunci: 6750000]'),
+                ans_ex_formula: ans_ex_formula + (ans_ex_formula === 'VLOOKUP' ? ' [BENAR]' : ' [SALAH - Kunci: VLOOKUP]'),
+
                 emailSubj: emailSubj,
                 emailBody: emailBody
             });
@@ -999,7 +1064,7 @@
             switchStep(6);
         }
 
-        // Web3Forms AJAX
+        // Web3Forms AJAX Transmit
         function sendResultsToEmail(data) {
             var alertBox = document.getElementById('email-status-alert');
             
@@ -1007,25 +1072,51 @@
                 access_key: "aa218f2d-38e8-4864-9e16-d75abb2a3bfd",
                 subject: "[HASIL TES] Admin Gudang Shopee - " + data.name + " (" + data.finalWeighted + "%)",
                 from_name: "Sistem Seleksi Admin Shopee",
-                "1. OPS ID": data.opsid,
-                "2. Nama Pelamar": data.name,
-                "3. Umur": data.age + " Tahun",
-                "4. No WhatsApp": data.phone,
-                "5. Pendidikan Terakhir": data.education,
-                "6. Posisi / Divisi": data.role,
-                "7. Lampiran Ijazah": data.fileIjazah,
-                "8. Durasi Pengerjaan": data.timeTaken,
-                "9. SKOR AKHIR": data.finalWeighted + "% (" + data.gradeText + ")",
-                "--- SKOR PER MODUL ---": "------------------------------------",
+
+                // --- IDENTITAS KANDIDAT ---
+                "1. OPS ID KANDIDAT": data.opsid,
+                "2. NAMA LENGKAP KANDIDAT": data.name,
+                "3. UMUR (TAHUN)": data.age + " Tahun",
+                "4. NOMOR WHATSAPP / HP": data.phone,
+                "5. PENDIDIKAN TERAKHIR": data.education,
+                "6. PILIHAN DIVISI / POSISI": data.role,
+                "7. LAMPIRAN FOTO IJAZAH TERAKHIR": data.fileIjazah,
+
+                // --- HASIL & REKAP SKOR ---
+                "--- REKAP HASIL UJIAN ---": "------------------------------------",
+                "Durasi Pengerjaan": data.timeTaken,
+                "SKOR AKHIR": data.finalWeighted + "% (" + data.gradeText + ")",
                 "Modul 1 (Shortcut & OS)": data.scScore + " / 100",
                 "Modul 2 (Input Resi & Bin)": data.typeScore + " / 100",
                 "Modul 3 (Excel Campaign)": data.excelScore + " / 100",
                 "Modul 4 (Laporan Email SLA)": data.emailScore + " / 100",
-                "--- CATATAN EVALUASI HR ---": "------------------------------------",
-                "A. Navigasi & OS": data.osEvalText,
-                "B. Ketelitian Input": data.typeEvalText,
-                "C. Logika Excel Stok": data.excelEvalText,
-                "D. Respons SLA": data.emailEvalText,
+
+                // --- DETAIL JAWABAN MODUL 1 ---
+                "--- RINCIAN JAWABAN MODUL 1 (SHORTCUT & OS) ---": "------------------------------------",
+                "1. Cari No Resi (Ctrl+F)": data.ans_sc1,
+                "2. Pindah Layar (Alt+Tab)": data.ans_sc2,
+                "3. Paste Massal (Ctrl+V)": data.ans_sc3,
+                "4. Select All (Ctrl+A)": data.ans_sc4,
+                "5. Screenshot Resi (Win+Shift+S)": data.ans_sc5,
+                "6. Format Download Shopee (.zip)": data.ans_os1,
+                "7. Format Mass Update (.xlsx/.csv)": data.ans_os2,
+                "8. Format Nama File Manifest": data.ans_os3,
+
+                // --- DETAIL JAWABAN MODUL 2 ---
+                "--- RINCIAN JAWABAN MODUL 2 (INPUT RESI) ---": "------------------------------------",
+                "Input Paket 1 (SPXID0399812345)": data.ans_pkg1,
+                "Input Paket 2 (JP288102938491)": data.ans_pkg2,
+                "Input Paket 3 (AK009812739281)": data.ans_pkg3,
+
+                // --- DETAIL JAWABAN MODUL 3 ---
+                "--- RINCIAN JAWABAN MODUL 3 (EXCEL) ---": "------------------------------------",
+                "Produk 1 (ELEC-POWERBANK)": data.ans_ex1,
+                "Produk 2 (BEAUTY-SERUM)": data.ans_ex2,
+                "Produk 3 (FASH-T-SHIRT)": data.ans_ex3,
+                "Total Nilai Asset Beauty Serum": data.ans_ex_asset,
+                "Rumus Excel Pencocokan Bin": data.ans_ex_formula,
+
+                // --- DETAIL JAWABAN MODUL 4 ---
                 "--- JAWABAN EMAIL LAPORAN KANDIDAT ---": "------------------------------------",
                 "Subjek Email Laporan": data.emailSubj || "(Kosong)",
                 "Isi Pesan Laporan": data.emailBody || "(Kosong)"
