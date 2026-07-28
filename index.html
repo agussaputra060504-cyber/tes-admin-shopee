@@ -680,7 +680,7 @@
                     </div>
                 </div>
 
-                <!-- Web3Forms Status Alert -->
+                <!-- Google Apps Script Status Alert -->
                 <div id="email-status-alert" class="hidden my-4 p-4 rounded-lg text-sm font-medium"></div>
 
                 <!-- Candidate Metadata -->
@@ -776,6 +776,9 @@
     </main>
 
     <script>
+        // GANTI SAMA URL WEB APP GOOGLE APPS SCRIPT ANDA
+        const GAS_WEB_APP_URL = "https://script.google.com/macros/s/AKfycbxq-IySzyQnYyUcZqXgZil3LxxccZ0w7Qe19c8TF9sNRIw6_U4E87eoGB85VoYkz8I/exec";
+
         // State Variables
         var currentStep = 1;
         var timerInterval = null;
@@ -836,8 +839,29 @@
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
+        // Helper Konversi File ke Base64
+        function fileToBase64(file) {
+            return new Promise((resolve, reject) => {
+                if (!file) {
+                    resolve(null);
+                    return;
+                }
+                const reader = new FileReader();
+                reader.onload = () => {
+                    const base64String = reader.result.split(',')[1];
+                    resolve({
+                        base64: base64String,
+                        type: file.type,
+                        name: file.name
+                    });
+                };
+                reader.onerror = error => reject(error);
+                reader.readAsDataURL(file);
+            });
+        }
+
         // Calculate Scores & Generate HR Report
-        function finishAndGenerateReport() {
+        async function finishAndGenerateReport() {
             if(timerInterval) clearInterval(timerInterval);
 
             var submitBtn = document.getElementById('btn-submit-test');
@@ -959,7 +983,15 @@
             var phone = document.getElementById('cand-phone').value;
             var education = document.getElementById('cand-education').value;
             var role = document.getElementById('cand-role').value;
-            var fileIjazah = document.getElementById('cand-ijazah').files[0] ? document.getElementById('cand-ijazah').files[0].name : "Ada";
+            
+            // File Ijazah Processing
+            var fileInput = document.getElementById('cand-ijazah');
+            var fileIjazahData = null;
+            var fileIjazahName = "Tidak Ada";
+            if(fileInput && fileInput.files[0]) {
+                fileIjazahName = fileInput.files[0].name;
+                fileIjazahData = await fileToBase64(fileInput.files[0]);
+            }
 
             document.getElementById('res-name').innerText = "[" + opsid + "] " + name;
             document.getElementById('res-phone').innerText = phone + " (" + age + " thn)";
@@ -1016,15 +1048,16 @@
             document.getElementById('eval-excel-text').innerText = excelEvalText;
             document.getElementById('eval-email-text').innerText = emailEvalText;
 
-            // Kirim Jawaban Detail ke Email via Web3Forms
-            sendResultsToEmail({
+            // Kirim Hasil ke Google Apps Script / Google Sheets
+            sendResultsToGoogleScript({
                 opsid: opsid,
                 name: name,
                 age: age,
                 phone: phone,
                 education: education,
                 role: role,
-                fileIjazah: fileIjazah,
+                fileIjazahName: fileIjazahName,
+                fileIjazahData: fileIjazahData,
                 timeTaken: timeTakenFormatted,
                 finalWeighted: finalWeighted,
                 gradeText: gradeText,
@@ -1037,7 +1070,7 @@
                 excelEvalText: excelEvalText,
                 emailEvalText: emailEvalText,
 
-                // --- DETAIL JAWABAN KANDIDAT ---
+                // Rincian Jawaban
                 ans_sc1: ans_sc1 + (ans_sc1 === 'Ctrl+F' ? ' [BENAR]' : ' [SALAH - Benar: Ctrl+F]'),
                 ans_sc2: ans_sc2 + (ans_sc2 === 'Alt+Tab' ? ' [BENAR]' : ' [SALAH - Benar: Alt+Tab]'),
                 ans_sc3: ans_sc3 + (ans_sc3 === 'Ctrl+V' ? ' [BENAR]' : ' [SALAH - Benar: Ctrl+V]'),
@@ -1064,83 +1097,30 @@
             switchStep(6);
         }
 
-        // Web3Forms AJAX Transmit
-        function sendResultsToEmail(data) {
+        // Send Data to Google Apps Script Web App
+        function sendResultsToGoogleScript(data) {
             var alertBox = document.getElementById('email-status-alert');
-            
-            var payload = {
-                access_key: "aa218f2d-38e8-4864-9e16-d75abb2a3bfd",
-                subject: "[HASIL TES] Admin Gudang Shopee - " + data.name + " (" + data.finalWeighted + "%)",
-                from_name: "Sistem Seleksi Admin Shopee",
+            alertBox.className = "my-4 p-4 rounded-lg text-sm font-medium bg-blue-100 text-blue-800 border border-blue-300";
+            alertBox.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Sedang menyimpan data ke Database Google Sheets...';
+            alertBox.classList.remove('hidden');
 
-                // --- IDENTITAS KANDIDAT ---
-                "1. OPS ID KANDIDAT": data.opsid,
-                "2. NAMA LENGKAP KANDIDAT": data.name,
-                "3. UMUR (TAHUN)": data.age + " Tahun",
-                "4. NOMOR WHATSAPP / HP": data.phone,
-                "5. PENDIDIKAN TERAKHIR": data.education,
-                "6. PILIHAN DIVISI / POSISI": data.role,
-                "7. LAMPIRAN FOTO IJAZAH TERAKHIR": data.fileIjazah,
-
-                // --- HASIL & REKAP SKOR ---
-                "--- REKAP HASIL UJIAN ---": "------------------------------------",
-                "Durasi Pengerjaan": data.timeTaken,
-                "SKOR AKHIR": data.finalWeighted + "% (" + data.gradeText + ")",
-                "Modul 1 (Shortcut & OS)": data.scScore + " / 100",
-                "Modul 2 (Input Resi & Bin)": data.typeScore + " / 100",
-                "Modul 3 (Excel Campaign)": data.excelScore + " / 100",
-                "Modul 4 (Laporan Email SLA)": data.emailScore + " / 100",
-
-                // --- DETAIL JAWABAN MODUL 1 ---
-                "--- RINCIAN JAWABAN MODUL 1 (SHORTCUT & OS) ---": "------------------------------------",
-                "1. Cari No Resi (Ctrl+F)": data.ans_sc1,
-                "2. Pindah Layar (Alt+Tab)": data.ans_sc2,
-                "3. Paste Massal (Ctrl+V)": data.ans_sc3,
-                "4. Select All (Ctrl+A)": data.ans_sc4,
-                "5. Screenshot Resi (Win+Shift+S)": data.ans_sc5,
-                "6. Format Download Shopee (.zip)": data.ans_os1,
-                "7. Format Mass Update (.xlsx/.csv)": data.ans_os2,
-                "8. Format Nama File Manifest": data.ans_os3,
-
-                // --- DETAIL JAWABAN MODUL 2 ---
-                "--- RINCIAN JAWABAN MODUL 2 (INPUT RESI) ---": "------------------------------------",
-                "Input Paket 1 (SPXID0399812345)": data.ans_pkg1,
-                "Input Paket 2 (JP288102938491)": data.ans_pkg2,
-                "Input Paket 3 (AK009812739281)": data.ans_pkg3,
-
-                // --- DETAIL JAWABAN MODUL 3 ---
-                "--- RINCIAN JAWABAN MODUL 3 (EXCEL) ---": "------------------------------------",
-                "Produk 1 (ELEC-POWERBANK)": data.ans_ex1,
-                "Produk 2 (BEAUTY-SERUM)": data.ans_ex2,
-                "Produk 3 (FASH-T-SHIRT)": data.ans_ex3,
-                "Total Nilai Asset Beauty Serum": data.ans_ex_asset,
-                "Rumus Excel Pencocokan Bin": data.ans_ex_formula,
-
-                // --- DETAIL JAWABAN MODUL 4 ---
-                "--- JAWABAN EMAIL LAPORAN KANDIDAT ---": "------------------------------------",
-                "Subjek Email Laporan": data.emailSubj || "(Kosong)",
-                "Isi Pesan Laporan": data.emailBody || "(Kosong)"
-            };
-
-            var xhr = new XMLHttpRequest();
-            xhr.open("POST", "https://api.web3forms.com/submit", true);
-            xhr.setRequestHeader("Content-Type", "application/json");
-            xhr.setRequestHeader("Accept", "application/json");
-
-            xhr.onreadystatechange = function() {
-                if (xhr.readyState === 4) {
-                    if (xhr.status === 200) {
-                        alertBox.className = "my-4 p-4 rounded-lg text-sm font-medium bg-emerald-100 text-emerald-800 border border-emerald-300";
-                        alertBox.innerHTML = '<i class="fa-solid fa-circle-check"></i> <strong>Berhasil!</strong> Hasil tes kandidat <strong>' + data.name + '</strong> telah terkirim ke email Anda.';
-                    } else {
-                        alertBox.className = "my-4 p-4 rounded-lg text-sm font-medium bg-red-100 text-red-800 border border-red-300";
-                        alertBox.innerHTML = '<i class="fa-solid fa-triangle-exclamation"></i> <strong>Gagal Mengirim Email:</strong> Mohon periksa koneksi internet.';
-                    }
-                    alertBox.classList.remove('hidden');
-                }
-            };
-
-            xhr.send(JSON.stringify(payload));
+            fetch(GAS_WEB_APP_URL, {
+                method: "POST",
+                mode: "no-cors",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(data)
+            })
+            .then(function() {
+                alertBox.className = "my-4 p-4 rounded-lg text-sm font-medium bg-emerald-100 text-emerald-800 border border-emerald-300";
+                alertBox.innerHTML = '<i class="fa-solid fa-circle-check"></i> <strong>Berhasil!</strong> Hasil tes kandidat <strong>' + data.name + '</strong> telah berhasil tersimpan di Google Sheets.';
+            })
+            .catch(function(error) {
+                console.error("Error Transmitting Data: ", error);
+                alertBox.className = "my-4 p-4 rounded-lg text-sm font-medium bg-red-100 text-red-800 border border-red-300";
+                alertBox.innerHTML = '<i class="fa-solid fa-triangle-exclamation"></i> <strong>Gagal Mengirim Data:</strong> Mohon periksa koneksi internet Anda.';
+            });
         }
 
         // Reset Form
