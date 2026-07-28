@@ -786,11 +786,27 @@
         var testStarted = false;
 
         // Attach Event Listener setelah DOM Siap
+        // Attach Event Listener setelah DOM Siap
         document.addEventListener('DOMContentLoaded', function() {
             var submitBtn = document.getElementById('btn-submit-test');
             if(submitBtn) {
                 submitBtn.addEventListener('click', finishAndGenerateReport);
             }
+
+            // Anti-Paste untuk Modul 2 (Input Resi & Bin)
+            const step3Inputs = document.querySelectorAll('#step-3 input');
+            step3Inputs.forEach(input => {
+                // Cegah Paste (Ctrl+V)
+                input.addEventListener('paste', function(e) {
+                    e.preventDefault();
+                    alert("⚠️ DILARANG PASTE (CTRL+V)!\n\nUntuk menguji ketelitian dan kecepatan ketik Admin Gudang, Anda wajib mengetikkan nomor resi, SKU, dan lokasi bin secara MANUAL.");
+                });
+
+                // Matikan Klik Kanan pada Kolom Input
+                input.addEventListener('contextmenu', function(e) {
+                    e.preventDefault();
+                });
+            });
         });
 
         // Start Test Timer
