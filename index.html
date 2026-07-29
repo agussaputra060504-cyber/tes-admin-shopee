@@ -18,7 +18,6 @@
         .custom-scrollbar::-webkit-scrollbar { width: 6px; height: 6px; }
         .custom-scrollbar::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
         
-        /* Form Identitas Pelamar Layout Grid */
         .form-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
@@ -104,7 +103,7 @@
     <!-- Main Content Area -->
     <main class="max-w-7xl mx-auto px-4 py-6 flex-grow w-full">
 
-        <!-- STEP 1: REGISTRASI KANDIDAT & PEMBERITAHUAN JOBDESK -->
+        <!-- STEP 1: REGISTRASI KANDIDAT -->
         <section id="step-1" class="step-content space-y-6">
             <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-200 max-w-3xl mx-auto space-y-6">
                 <div class="border-b border-slate-100 pb-4 flex items-center gap-3">
@@ -117,7 +116,6 @@
                     </div>
                 </div>
 
-                <!-- Box Pemberitahuan Jobdesk DW Admin -->
                 <div class="bg-slate-900 text-slate-100 p-5 rounded-xl shadow-md border border-slate-800 space-y-3">
                     <div class="flex items-center gap-2 text-orange-400 font-bold border-b border-slate-800 pb-2">
                         <i class="fa-solid fa-bullhorn text-lg"></i>
@@ -151,35 +149,28 @@
                     </div>
                 </div>
 
-                <!-- FORM IDENTITAS PELAMAR -->
                 <form id="form-candidate" onsubmit="startTest(event)" class="space-y-4">
                     <div class="form-grid">
-
-                        <!-- 1. OPS ID -->
                         <div class="form-group">
                             <label class="block text-xs font-semibold uppercase text-slate-600 mb-1">OPS ID KANDIDAT *</label>
                             <input type="text" id="cand-opsid" required placeholder="Contoh: Ops558731" class="w-full border border-slate-300 p-2.5 rounded-lg text-sm focus:ring-2 focus:ring-orange-500 outline-none">
                         </div>
 
-                        <!-- 2. NAMA LENGKAP -->
                         <div class="form-group">
                             <label class="block text-xs font-semibold uppercase text-slate-600 mb-1">NAMA LENGKAP KANDIDAT *</label>
                             <input type="text" id="cand-name" required placeholder="Contoh: Muhammad Rizky" class="w-full border border-slate-300 p-2.5 rounded-lg text-sm focus:ring-2 focus:ring-orange-500 outline-none">
                         </div>
 
-                        <!-- 3. UMUR -->
                         <div class="form-group">
                             <label class="block text-xs font-semibold uppercase text-slate-600 mb-1">UMUR (TAHUN) *</label>
                             <input type="number" id="cand-age" min="18" max="50" required placeholder="Contoh: 23" class="w-full border border-slate-300 p-2.5 rounded-lg text-sm focus:ring-2 focus:ring-orange-500 outline-none">
                         </div>
 
-                        <!-- 4. NOMOR WHATSAPP -->
                         <div class="form-group">
                             <label class="block text-xs font-semibold uppercase text-slate-600 mb-1">NOMOR WHATSAPP / HP *</label>
                             <input type="tel" id="cand-phone" required placeholder="081234567890" class="w-full border border-slate-300 p-2.5 rounded-lg text-sm focus:ring-2 focus:ring-orange-500 outline-none">
                         </div>
 
-                        <!-- 5. PENDIDIKAN TERAKHIR -->
                         <div class="form-group">
                             <label class="block text-xs font-semibold uppercase text-slate-600 mb-1">PENDIDIKAN TERAKHIR *</label>
                             <select id="cand-education" required class="w-full border border-slate-300 p-2.5 rounded-lg text-sm focus:ring-2 focus:ring-orange-500 outline-none">
@@ -190,7 +181,6 @@
                             </select>
                         </div>
 
-                        <!-- 6. PILIHAN DIVISI -->
                         <div class="form-group">
                             <label class="block text-xs font-semibold uppercase text-slate-600 mb-1">PILIHAN DIVISI / POSISI *</label>
                             <select id="cand-role" required class="w-full border border-slate-300 p-2.5 rounded-lg text-sm focus:ring-2 focus:ring-orange-500 outline-none">
@@ -202,13 +192,11 @@
                             </select>
                         </div>
 
-                        <!-- 7. LAMPIRAN FOTO IJAZAH -->
                         <div class="form-group full-width">
                             <label class="block text-xs font-semibold uppercase text-slate-600 mb-1">LAMPIRAN FOTO IJAZAH TERAKHIR (JPG/PNG/PDF) *</label>
                             <input type="file" id="cand-ijazah" accept="image/*,.pdf" required class="w-full border border-slate-300 p-2.5 rounded-lg text-sm focus:ring-2 focus:ring-orange-500 outline-none">
                             <small class="text-slate-500 text-[11px] mt-1">*Maksimal ukuran file 5MB. Pastikan foto atau dokumen terlihat jelas.</small>
                         </div>
-
                     </div>
 
                     <div class="bg-orange-50 p-4 rounded-lg border border-orange-200 text-xs text-orange-900 space-y-2 mt-4">
@@ -229,7 +217,7 @@
             </div>
         </section>
 
-        <!-- STEP 2: OPERASIONAL OS & SHORTCUT KEYBOARD SHOPEE -->
+        <!-- STEP 2: OPERASIONAL OS & SHORTCUT KEYBOARD -->
         <section id="step-2" class="step-content hidden space-y-6">
             <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-200">
                 <div class="flex justify-between items-start border-b border-slate-100 pb-4 mb-4">
@@ -243,7 +231,6 @@
                 </div>
 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <!-- Soal Shortcut Keyboard -->
                     <div class="space-y-4">
                         <h3 class="font-bold text-sm text-slate-700 bg-slate-50 p-2.5 rounded-lg border border-slate-200 flex items-center gap-2">
                             <i class="fa-solid fa-bolt text-amber-500"></i> 1. Kombinasi Shortcut Keyboard Wajib Admin
@@ -302,7 +289,6 @@
                         </div>
                     </div>
 
-                    <!-- Soal Pemahaman File & Format Shopee -->
                     <div class="space-y-4">
                         <h3 class="font-bold text-sm text-slate-700 bg-slate-50 p-2.5 rounded-lg border border-slate-200 flex items-center gap-2">
                             <i class="fa-solid fa-file-csv text-orange-500"></i> 2. Advanced File Format & Data Integrity
@@ -351,7 +337,7 @@
             </div>
         </section>
 
-        <!-- STEP 3: KECEPATAN & KETELITIAN INPUT RESI & BIN LOCATION (HARD LEVEL) -->
+        <!-- STEP 3: INPUT RESI & BIN -->
         <section id="step-3" class="step-content hidden space-y-6">
             <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-200">
                 <div class="flex justify-between items-start border-b border-slate-100 pb-4 mb-4">
@@ -364,7 +350,6 @@
                     <span class="bg-slate-100 text-slate-700 font-semibold text-xs px-3 py-1 rounded-full border border-slate-200">Bobot: 25%</span>
                 </div>
 
-                <!-- Reference Table (5 Items with Trap Characters) -->
                 <div class="bg-slate-900 text-slate-100 p-4 rounded-xl mb-6 shadow-md border border-slate-800">
                     <h3 class="text-xs uppercase font-bold tracking-wider text-orange-400 mb-2 flex items-center gap-2">
                         <i class="fa-solid fa-file-lines"></i> Data Manifest Outbound High-Precision (Ketik Presisi Ke Form Input)
@@ -427,109 +412,53 @@
                     </div>
                 </div>
 
-                <!-- Input Entry Form (5 Rows) -->
                 <div class="space-y-4">
                     <h3 class="text-sm font-bold text-slate-800">Area Form Input Kandidat Admin (Ketik Manual):</h3>
                     
                     <div class="space-y-3">
-                        <!-- Row 1 -->
                         <div class="grid grid-cols-12 gap-2 p-3 bg-slate-50 rounded-lg border border-slate-200 text-xs items-center">
                             <span class="col-span-12 md:col-span-1 font-bold text-slate-500">Paket 1</span>
-                            <div class="col-span-12 md:col-span-3">
-                                <input type="text" id="type-awb-1" placeholder="No Resi (AWB)" class="input-cell font-mono">
-                            </div>
-                            <div class="col-span-12 md:col-span-3">
-                                <input type="text" id="type-sku-1" placeholder="Kode SKU Shopee" class="input-cell font-mono">
-                            </div>
-                            <div class="col-span-6 md:col-span-2">
-                                <input type="text" id="type-bin-1" placeholder="Bin Rack" class="input-cell font-mono">
-                            </div>
-                            <div class="col-span-6 md:col-span-2">
-                                <input type="text" id="type-courier-1" placeholder="Jasa Kirim" class="input-cell">
-                            </div>
-                            <div class="col-span-12 md:col-span-1">
-                                <input type="number" id="type-qty-1" placeholder="Qty" class="input-cell text-center">
-                            </div>
+                            <div class="col-span-12 md:col-span-3"><input type="text" id="type-awb-1" placeholder="No Resi (AWB)" class="input-cell font-mono"></div>
+                            <div class="col-span-12 md:col-span-3"><input type="text" id="type-sku-1" placeholder="Kode SKU Shopee" class="input-cell font-mono"></div>
+                            <div class="col-span-6 md:col-span-2"><input type="text" id="type-bin-1" placeholder="Bin Rack" class="input-cell font-mono"></div>
+                            <div class="col-span-6 md:col-span-2"><input type="text" id="type-courier-1" placeholder="Jasa Kirim" class="input-cell"></div>
+                            <div class="col-span-12 md:col-span-1"><input type="number" id="type-qty-1" placeholder="Qty" class="input-cell text-center"></div>
                         </div>
 
-                        <!-- Row 2 -->
                         <div class="grid grid-cols-12 gap-2 p-3 bg-slate-50 rounded-lg border border-slate-200 text-xs items-center">
                             <span class="col-span-12 md:col-span-1 font-bold text-slate-500">Paket 2</span>
-                            <div class="col-span-12 md:col-span-3">
-                                <input type="text" id="type-awb-2" placeholder="No Resi (AWB)" class="input-cell font-mono">
-                            </div>
-                            <div class="col-span-12 md:col-span-3">
-                                <input type="text" id="type-sku-2" placeholder="Kode SKU Shopee" class="input-cell font-mono">
-                            </div>
-                            <div class="col-span-6 md:col-span-2">
-                                <input type="text" id="type-bin-2" placeholder="Bin Rack" class="input-cell font-mono">
-                            </div>
-                            <div class="col-span-6 md:col-span-2">
-                                <input type="text" id="type-courier-2" placeholder="Jasa Kirim" class="input-cell">
-                            </div>
-                            <div class="col-span-12 md:col-span-1">
-                                <input type="number" id="type-qty-2" placeholder="Qty" class="input-cell text-center">
-                            </div>
+                            <div class="col-span-12 md:col-span-3"><input type="text" id="type-awb-2" placeholder="No Resi (AWB)" class="input-cell font-mono"></div>
+                            <div class="col-span-12 md:col-span-3"><input type="text" id="type-sku-2" placeholder="Kode SKU Shopee" class="input-cell font-mono"></div>
+                            <div class="col-span-6 md:col-span-2"><input type="text" id="type-bin-2" placeholder="Bin Rack" class="input-cell font-mono"></div>
+                            <div class="col-span-6 md:col-span-2"><input type="text" id="type-courier-2" placeholder="Jasa Kirim" class="input-cell"></div>
+                            <div class="col-span-12 md:col-span-1"><input type="number" id="type-qty-2" placeholder="Qty" class="input-cell text-center"></div>
                         </div>
 
-                        <!-- Row 3 -->
                         <div class="grid grid-cols-12 gap-2 p-3 bg-slate-50 rounded-lg border border-slate-200 text-xs items-center">
                             <span class="col-span-12 md:col-span-1 font-bold text-slate-500">Paket 3</span>
-                            <div class="col-span-12 md:col-span-3">
-                                <input type="text" id="type-awb-3" placeholder="No Resi (AWB)" class="input-cell font-mono">
-                            </div>
-                            <div class="col-span-12 md:col-span-3">
-                                <input type="text" id="type-sku-3" placeholder="Kode SKU Shopee" class="input-cell font-mono">
-                            </div>
-                            <div class="col-span-6 md:col-span-2">
-                                <input type="text" id="type-bin-3" placeholder="Bin Rack" class="input-cell font-mono">
-                            </div>
-                            <div class="col-span-6 md:col-span-2">
-                                <input type="text" id="type-courier-3" placeholder="Jasa Kirim" class="input-cell">
-                            </div>
-                            <div class="col-span-12 md:col-span-1">
-                                <input type="number" id="type-qty-3" placeholder="Qty" class="input-cell text-center">
-                            </div>
+                            <div class="col-span-12 md:col-span-3"><input type="text" id="type-awb-3" placeholder="No Resi (AWB)" class="input-cell font-mono"></div>
+                            <div class="col-span-12 md:col-span-3"><input type="text" id="type-sku-3" placeholder="Kode SKU Shopee" class="input-cell font-mono"></div>
+                            <div class="col-span-6 md:col-span-2"><input type="text" id="type-bin-3" placeholder="Bin Rack" class="input-cell font-mono"></div>
+                            <div class="col-span-6 md:col-span-2"><input type="text" id="type-courier-3" placeholder="Jasa Kirim" class="input-cell"></div>
+                            <div class="col-span-12 md:col-span-1"><input type="number" id="type-qty-3" placeholder="Qty" class="input-cell text-center"></div>
                         </div>
 
-                        <!-- Row 4 -->
                         <div class="grid grid-cols-12 gap-2 p-3 bg-slate-50 rounded-lg border border-slate-200 text-xs items-center">
                             <span class="col-span-12 md:col-span-1 font-bold text-slate-500">Paket 4</span>
-                            <div class="col-span-12 md:col-span-3">
-                                <input type="text" id="type-awb-4" placeholder="No Resi (AWB)" class="input-cell font-mono">
-                            </div>
-                            <div class="col-span-12 md:col-span-3">
-                                <input type="text" id="type-sku-4" placeholder="Kode SKU Shopee" class="input-cell font-mono">
-                            </div>
-                            <div class="col-span-6 md:col-span-2">
-                                <input type="text" id="type-bin-4" placeholder="Bin Rack" class="input-cell font-mono">
-                            </div>
-                            <div class="col-span-6 md:col-span-2">
-                                <input type="text" id="type-courier-4" placeholder="Jasa Kirim" class="input-cell">
-                            </div>
-                            <div class="col-span-12 md:col-span-1">
-                                <input type="number" id="type-qty-4" placeholder="Qty" class="input-cell text-center">
-                            </div>
+                            <div class="col-span-12 md:col-span-3"><input type="text" id="type-awb-4" placeholder="No Resi (AWB)" class="input-cell font-mono"></div>
+                            <div class="col-span-12 md:col-span-3"><input type="text" id="type-sku-4" placeholder="Kode SKU Shopee" class="input-cell font-mono"></div>
+                            <div class="col-span-6 md:col-span-2"><input type="text" id="type-bin-4" placeholder="Bin Rack" class="input-cell font-mono"></div>
+                            <div class="col-span-6 md:col-span-2"><input type="text" id="type-courier-4" placeholder="Jasa Kirim" class="input-cell"></div>
+                            <div class="col-span-12 md:col-span-1"><input type="number" id="type-qty-4" placeholder="Qty" class="input-cell text-center"></div>
                         </div>
 
-                        <!-- Row 5 -->
                         <div class="grid grid-cols-12 gap-2 p-3 bg-slate-50 rounded-lg border border-slate-200 text-xs items-center">
                             <span class="col-span-12 md:col-span-1 font-bold text-slate-500">Paket 5</span>
-                            <div class="col-span-12 md:col-span-3">
-                                <input type="text" id="type-awb-5" placeholder="No Resi (AWB)" class="input-cell font-mono">
-                            </div>
-                            <div class="col-span-12 md:col-span-3">
-                                <input type="text" id="type-sku-5" placeholder="Kode SKU Shopee" class="input-cell font-mono">
-                            </div>
-                            <div class="col-span-6 md:col-span-2">
-                                <input type="text" id="type-bin-5" placeholder="Bin Rack" class="input-cell font-mono">
-                            </div>
-                            <div class="col-span-6 md:col-span-2">
-                                <input type="text" id="type-courier-5" placeholder="Jasa Kirim" class="input-cell">
-                            </div>
-                            <div class="col-span-12 md:col-span-1">
-                                <input type="number" id="type-qty-5" placeholder="Qty" class="input-cell text-center">
-                            </div>
+                            <div class="col-span-12 md:col-span-3"><input type="text" id="type-awb-5" placeholder="No Resi (AWB)" class="input-cell font-mono"></div>
+                            <div class="col-span-12 md:col-span-3"><input type="text" id="type-sku-5" placeholder="Kode SKU Shopee" class="input-cell font-mono"></div>
+                            <div class="col-span-6 md:col-span-2"><input type="text" id="type-bin-5" placeholder="Bin Rack" class="input-cell font-mono"></div>
+                            <div class="col-span-6 md:col-span-2"><input type="text" id="type-courier-5" placeholder="Jasa Kirim" class="input-cell"></div>
+                            <div class="col-span-12 md:col-span-1"><input type="number" id="type-qty-5" placeholder="Qty" class="input-cell text-center"></div>
                         </div>
                     </div>
                 </div>
@@ -544,7 +473,7 @@
             </div>
         </section>
 
-        <!-- STEP 4: OLAH DATA EXCEL CAMPAIGN SHOPEE (ADVANCED) -->
+        <!-- STEP 4: EXCEL CAMPAIGN -->
         <section id="step-4" class="step-content hidden space-y-6">
             <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-200">
                 <div class="flex justify-between items-start border-b border-slate-100 pb-4 mb-4">
@@ -560,7 +489,6 @@
                     <span class="bg-slate-100 text-slate-700 font-semibold text-xs px-3 py-1 rounded-full border border-slate-200">Bobot: 35%</span>
                 </div>
 
-                <!-- Simulation Excel Grid Advanced -->
                 <div class="overflow-x-auto rounded-lg border border-slate-300 mb-6">
                     <table class="w-full text-xs text-left border-collapse">
                         <thead>
@@ -578,7 +506,6 @@
                             </tr>
                         </thead>
                         <tbody class="divide-y divide-slate-200 bg-white">
-                            <!-- Row 1 -->
                             <tr>
                                 <td class="p-2.5 font-mono font-bold border-r">ELEC-POWERBANK</td>
                                 <td class="p-2.5 border-r">Powerbank 10000mAh Fast Chg</td>
@@ -587,9 +514,7 @@
                                 <td class="p-2.5 border-r text-center text-red-600 font-semibold">- 85</td>
                                 <td class="p-2.5 border-r text-center text-rose-700 font-semibold">- 10</td>
                                 <td class="p-2.5 border-r text-center font-bold">20</td>
-                                <td class="p-2 border-r bg-yellow-50">
-                                    <input type="number" id="ex-stok-1" placeholder="Hitung..." class="input-cell text-center font-bold">
-                                </td>
+                                <td class="p-2 border-r bg-yellow-50"><input type="number" id="ex-stok-1" placeholder="Hitung..." class="input-cell text-center font-bold"></td>
                                 <td class="p-2 border-r bg-blue-50">
                                     <select id="ex-status-1" class="input-cell text-xs">
                                         <option value="">-- Pilih --</option>
@@ -600,7 +525,6 @@
                                 </td>
                                 <td class="p-2.5 text-right font-mono">Rp 120.000</td>
                             </tr>
-                            <!-- Row 2 -->
                             <tr>
                                 <td class="p-2.5 font-mono font-bold border-r">BEAUTY-SERUM</td>
                                 <td class="p-2.5 border-r">Serum Muka Brightening 30ml</td>
@@ -609,9 +533,7 @@
                                 <td class="p-2.5 border-r text-center text-red-600 font-semibold">- 110</td>
                                 <td class="p-2.5 border-r text-center text-rose-700 font-semibold">- 5</td>
                                 <td class="p-2.5 border-r text-center font-bold">30</td>
-                                <td class="p-2 border-r bg-yellow-50">
-                                    <input type="number" id="ex-stok-2" placeholder="Hitung..." class="input-cell text-center font-bold">
-                                </td>
+                                <td class="p-2 border-r bg-yellow-50"><input type="number" id="ex-stok-2" placeholder="Hitung..." class="input-cell text-center font-bold"></td>
                                 <td class="p-2 border-r bg-blue-50">
                                     <select id="ex-status-2" class="input-cell text-xs">
                                         <option value="">-- Pilih --</option>
@@ -622,7 +544,6 @@
                                 </td>
                                 <td class="p-2.5 text-right font-mono">Rp 45.000</td>
                             </tr>
-                            <!-- Row 3 -->
                             <tr>
                                 <td class="p-2.5 font-mono font-bold border-r">FASH-T-SHIRT</td>
                                 <td class="p-2.5 border-r">Kaos Polos Cotton 30s Black</td>
@@ -631,9 +552,7 @@
                                 <td class="p-2.5 border-r text-center text-red-600 font-semibold">- 38</td>
                                 <td class="p-2.5 border-r text-center text-rose-700 font-semibold">- 2</td>
                                 <td class="p-2.5 border-r text-center font-bold">15</td>
-                                <td class="p-2 border-r bg-yellow-50">
-                                    <input type="number" id="ex-stok-3" placeholder="Hitung..." class="input-cell text-center font-bold">
-                                </td>
+                                <td class="p-2 border-r bg-yellow-50"><input type="number" id="ex-stok-3" placeholder="Hitung..." class="input-cell text-center font-bold"></td>
                                 <td class="p-2 border-r bg-blue-50">
                                     <select id="ex-status-3" class="input-cell text-xs">
                                         <option value="">-- Pilih --</option>
@@ -648,7 +567,6 @@
                     </table>
                 </div>
 
-                <!-- Advanced Excel Questions -->
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4 bg-slate-50 p-4 rounded-lg border border-slate-200">
                     <div>
                         <label class="block text-xs font-bold text-slate-700 mb-1">
@@ -658,7 +576,6 @@
                             <span class="text-xs font-bold text-slate-500">Rp</span>
                             <input type="text" id="ex-asset-val" placeholder="Contoh: 1525000" class="input-cell max-w-xs font-mono">
                         </div>
-                        <p class="text-[11px] text-slate-400 mt-1">Petunjuk: Total (Damaged x Harga Jual) dari ketiga produk.</p>
                     </div>
 
                     <div>
@@ -684,7 +601,7 @@
             </div>
         </section>
 
-        <!-- STEP 5: EMAIL & LAPORAN PROBLEM SLA SHOPEE -->
+        <!-- STEP 5: LAPORAN ISSUE SLA -->
         <section id="step-5" class="step-content hidden space-y-6">
             <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-200">
                 <div class="flex justify-between items-start border-b border-slate-100 pb-4 mb-4">
@@ -692,12 +609,11 @@
                         <h2 class="text-xl font-bold text-slate-800 flex items-center gap-2">
                             <i class="fa-solid fa-envelope-open-text text-orange-600"></i> Modul 4: Incident Escalation & Cross-Departmental Communication
                         </h2>
-                        <p class="text-sm text-slate-500">Skenario: Terjadi selisih fisik stok opname sebanyak 15 pcs pada SKU `ELEC-POWERBANK` saat peak hour Flash Sale. Susun email eskalasi resmi ke Supervisor, Team Inventory, dan Seller Ops untuk mencegah penalti SLA Keterlambatan Pengiriman.</p>
+                        <p class="text-sm text-slate-500">Skenario: Terjadi selisih fisik stok opname sebanyak 15 pcs pada SKU `ELEC-POWERBANK` saat peak hour Flash Sale. Susun email eskalasi resmi ke Supervisor, Team Inventory, dan Seller Ops.</p>
                     </div>
                     <span class="bg-slate-100 text-slate-700 font-semibold text-xs px-3 py-1 rounded-full border border-slate-200">Bobot: 20%</span>
                 </div>
 
-                <!-- Simulated Email Interface -->
                 <div class="border border-slate-300 rounded-lg overflow-hidden shadow-sm">
                     <div class="bg-slate-100 px-4 py-2.5 border-b border-slate-300 text-xs text-slate-600 space-y-2">
                         <div class="flex items-center gap-2">
@@ -706,21 +622,18 @@
                         </div>
                         <div class="flex items-center gap-2">
                             <span class="w-16 font-semibold text-slate-500">Subjek:</span>
-                            <input type="text" id="email-subject" placeholder="Subjek Laporan Escalation (Contoh: [URGENT] Discrepancy Stock Opname ELEC-POWERBANK SLA 24H)" class="w-full border border-slate-300 rounded px-2 py-1 bg-white">
+                            <input type="text" id="email-subject" placeholder="Subjek Laporan Escalation..." class="w-full border border-slate-300 rounded px-2 py-1 bg-white">
                         </div>
                     </div>
 
                     <div class="p-4 bg-white">
-                        <textarea id="email-body" rows="6" placeholder="Tuliskan laporan eskalasi profesional:
-1. Detail Temuan: Jumlah selisih fisik vs sistem WMS dan SKU terdampak.
-2. Dampak Operasional: Estimasi order terlambat & risiko poin pinalti keterlambatan Shopee (SLA 24 Jam).
-3. Tindakan Penanganan & Usulan Solusi: Stock adjustment segera / Re-routing pengiriman dari Hub terdekat." class="w-full border border-slate-200 rounded-lg p-3 text-sm focus:ring-2 focus:ring-orange-500 outline-none leading-relaxed"></textarea>
+                        <textarea id="email-body" rows="6" placeholder="Tuliskan laporan eskalasi profesional..." class="w-full border border-slate-200 rounded-lg p-3 text-sm focus:ring-2 focus:ring-orange-500 outline-none leading-relaxed"></textarea>
                     </div>
                 </div>
 
                 <div class="flex justify-between items-center pt-4 border-t border-slate-100">
                     <div class="text-xs text-slate-500">
-                        <i class="fa-solid fa-circle-check text-emerald-500"></i> Sudah yakin dengan jawaban? Klik tombol di kanan untuk memunculkan Skor HR & Mengirim Hasil.
+                        <i class="fa-solid fa-circle-check text-emerald-500"></i> Sudah yakin dengan jawaban? Klik tombol di kanan untuk memunculkan Skor HR.
                     </div>
                     <button id="btn-submit-test" type="button" class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold px-6 py-3 rounded-lg shadow-md flex items-center gap-2 transition">
                         <i class="fa-solid fa-square-check text-lg"></i>
@@ -730,11 +643,9 @@
             </div>
         </section>
 
-        <!-- STEP 6: HASIL REKAP PENILAIAN HR SHOPEE -->
+        <!-- STEP 6: HASIL EVALUASI -->
         <section id="step-6" class="step-content hidden space-y-6">
             <div class="bg-white p-8 rounded-xl shadow-lg border border-slate-200 print:shadow-none">
-                
-                <!-- Report Header -->
                 <div class="flex flex-col md:flex-row justify-between items-start border-b border-slate-200 pb-6 gap-4">
                     <div>
                         <span class="bg-orange-100 text-orange-800 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">Shopee Fulfillment Advanced Selection Test</span>
@@ -748,10 +659,8 @@
                     </div>
                 </div>
 
-                <!-- Google Apps Script Status Alert -->
                 <div id="email-status-alert" class="hidden my-4 p-4 rounded-lg text-sm font-medium"></div>
 
-                <!-- Candidate Metadata -->
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-4 my-6 bg-slate-50 p-4 rounded-lg border border-slate-200 text-sm">
                     <div>
                         <span class="text-xs text-slate-500 block">OPS ID / Nama Pelamar:</span>
@@ -767,38 +676,29 @@
                     </div>
                 </div>
 
-                <!-- Final Score Summary Cards -->
                 <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
-                    <!-- Total Score -->
                     <div class="bg-orange-600 text-white p-4 rounded-xl shadow-sm text-center">
                         <span class="text-xs font-medium text-orange-100 uppercase">Skor Akumulasi Akhir</span>
                         <div id="res-final-score" class="text-4xl font-black my-1">0%</div>
                         <span id="res-grade-badge" class="inline-block bg-white/20 text-white text-[11px] px-2.5 py-0.5 rounded-full font-semibold">--</span>
                     </div>
 
-                    <!-- Shortcut Score -->
                     <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 text-center">
                         <span class="text-xs font-semibold text-slate-500">1. Shortcut & OS</span>
                         <div id="res-sc-score" class="text-2xl font-bold text-slate-800 my-1">0 / 100</div>
-                        <p class="text-[11px] text-slate-400">Kecepatan Navigasi</p>
                     </div>
 
-                    <!-- Typing Score -->
                     <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 text-center">
                         <span class="text-xs font-semibold text-slate-500">2. Input Resi & Bin</span>
                         <div id="res-type-score" class="text-2xl font-bold text-slate-800 my-1">0 / 100</div>
-                        <p class="text-[11px] text-slate-400">Akurasi Digit Kritis</p>
                     </div>
 
-                    <!-- Excel Score -->
                     <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 text-center">
                         <span class="text-xs font-semibold text-slate-500">3. Excel Advanced</span>
                         <div id="res-excel-score" class="text-2xl font-bold text-slate-800 my-1">0 / 100</div>
-                        <p class="text-[11px] text-slate-400">Logic & Formulas</p>
                     </div>
                 </div>
 
-                <!-- Qualitative Evaluation Breakdown -->
                 <div class="space-y-4 border-t border-slate-200 pt-6">
                     <h3 class="font-bold text-slate-800 text-sm uppercase tracking-wider flex items-center gap-2">
                         <i class="fa-solid fa-clipboard-check text-orange-600"></i> Catatan Evaluasi Kompetensi untuk Tim HR / User:
@@ -827,7 +727,6 @@
                     </div>
                 </div>
 
-                <!-- Recruiter Action Buttons -->
                 <div class="mt-8 flex justify-between items-center border-t border-slate-200 pt-6 print:hidden">
                     <button type="button" onclick="window.print()" class="bg-slate-900 hover:bg-black text-white text-sm font-semibold px-5 py-2.5 rounded-lg flex items-center gap-2">
                         <i class="fa-solid fa-print"></i>
@@ -844,37 +743,29 @@
     </main>
 
     <script>
-        // URL WEB APP GOOGLE APPS SCRIPT
+        // MASUKKAN URL GOOGLE APPS SCRIPT WEB APP ANDA DI SINI
         const GAS_WEB_APP_URL = "https://script.google.com/macros/s/AKfycbydum4qg0FJ3hRfWCJ8dgIc5Vg1w0ey-1f4FcQ3tftp8jtHGgn_WXL_vjwxSrfwByxd/exec";
 
-        // State Variables
         var currentStep = 1;
         var timerInterval = null;
         var secondsElapsed = 0;
         var testStarted = false;
 
-        // Attach Event Listener setelah DOM Siap
         document.addEventListener('DOMContentLoaded', function() {
             var submitBtn = document.getElementById('btn-submit-test');
             if(submitBtn) {
                 submitBtn.addEventListener('click', finishAndGenerateReport);
             }
 
-            // Anti-Paste untuk Modul 2 (Input Resi & Bin)
             const step3Inputs = document.querySelectorAll('#step-3 input');
             step3Inputs.forEach(input => {
                 input.addEventListener('paste', function(e) {
                     e.preventDefault();
                     alert("⚠️ DILARANG PASTE (CTRL+V)!\n\nUntuk menguji ketelitian input karakter kritis, Anda wajib mengetikkan nomor resi, SKU, dan lokasi bin secara MANUAL.");
                 });
-
-                input.addEventListener('contextmenu', function(e) {
-                    e.preventDefault();
-                });
             });
         });
 
-        // Start Test Timer
         function startTest(e) {
             if(e && e.preventDefault) e.preventDefault();
             var nameInput = document.getElementById('cand-name');
@@ -887,11 +778,8 @@
             if(!timerInterval) {
                 timerInterval = setInterval(function() {
                     secondsElapsed++;
-                    var mins = String(Math.floor(secondsElapsed / 60));
-                    if(mins.length < 2) mins = '0' + mins;
-                    var secs = String(secondsElapsed % 60);
-                    if(secs.length < 2) secs = '0' + secs;
-                    
+                    var mins = String(Math.floor(secondsElapsed / 60)).padStart(2, '0');
+                    var secs = String(secondsElapsed % 60).padStart(2, '0');
                     document.getElementById('timer').innerText = mins + ':' + secs;
                 }, 1000);
             }
@@ -900,17 +788,12 @@
             return false;
         }
 
-        // Switch Navigation Steps
         function switchStep(stepNum) {
             var steps = document.querySelectorAll('.step-content');
-            for(var i = 0; i < steps.length; i++) {
-                steps[i].classList.add('hidden');
-            }
+            for(var i = 0; i < steps.length; i++) steps[i].classList.add('hidden');
 
             var tabs = document.querySelectorAll('.tab-btn');
-            for(var j = 0; j < tabs.length; j++) {
-                tabs[j].classList.remove('active');
-            }
+            for(var j = 0; j < tabs.length; j++) tabs[j].classList.remove('active');
 
             document.getElementById('step-' + stepNum).classList.remove('hidden');
             document.getElementById('tab-btn-' + stepNum).classList.add('active');
@@ -919,179 +802,94 @@
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
-        // Helper Konversi File ke Base64
         function fileToBase64(file) {
             return new Promise((resolve, reject) => {
-                if (!file) {
-                    resolve(null);
-                    return;
-                }
+                if (!file) { resolve(null); return; }
                 const reader = new FileReader();
-                reader.onload = () => {
-                    const base64String = reader.result.split(',')[1];
-                    resolve({
-                        base64: base64String,
-                        type: file.type,
-                        name: file.name
-                    });
-                };
+                reader.onload = () => resolve({ base64: reader.result.split(',')[1], type: file.type, name: file.name });
                 reader.onerror = error => reject(error);
                 reader.readAsDataURL(file);
             });
         }
 
-        // Calculate Scores & Generate HR Report
         async function finishAndGenerateReport() {
             var submitBtn = document.getElementById('btn-submit-test');
             var submitText = document.getElementById('btn-submit-text');
-            if(submitBtn) {
-                submitBtn.disabled = true;
-                submitBtn.classList.add('opacity-50', 'cursor-not-allowed');
-            }
+            if(submitBtn) submitBtn.disabled = true;
             if(submitText) submitText.innerText = "Mengirim Data Hasil Ujian...";
 
             if(timerInterval) clearInterval(timerInterval);
 
-            // -------------------------------------------------------------
-            // MODUL 1: SHORTCUT & FILE OS (8 Soal, @12.5 Poin)
-            // -------------------------------------------------------------
-            var ans_sc1 = document.getElementById('sc-1').value;
-            var ans_sc2 = document.getElementById('sc-2').value;
-            var ans_sc3 = document.getElementById('sc-3').value;
-            var ans_sc4 = document.getElementById('sc-4').value;
-            var ans_sc5 = document.getElementById('sc-5').value;
-            var ans_os1 = document.getElementById('os-1').value;
-            var ans_os2 = document.getElementById('os-2').value;
-            var ans_os3 = document.getElementById('os-3').value;
-
+            // 1. MODUL OS & SHORTCUT
             var scScore = 0;
-            if(ans_sc1 === 'Ctrl+F') scScore += 12.5;
-            if(ans_sc2 === 'Alt+Tab') scScore += 12.5;
-            if(ans_sc3 === 'F4') scScore += 12.5;
-            if(ans_sc4 === 'Ctrl+A') scScore += 12.5;
-            if(ans_sc5 === 'Win+Shift+S') scScore += 12.5;
-            if(ans_os1 === '.zip') scScore += 12.5;
-            if(ans_os2 === '.xlsx / .csv') scScore += 12.5;
-            if(ans_os3 === 'Manifest_SPX_Cikarang_22072026') scScore += 12.5;
+            if(document.getElementById('sc-1').value === 'Ctrl+F') scScore += 12.5;
+            if(document.getElementById('sc-2').value === 'Alt+Tab') scScore += 12.5;
+            if(document.getElementById('sc-3').value === 'F4') scScore += 12.5;
+            if(document.getElementById('sc-4').value === 'Ctrl+A') scScore += 12.5;
+            if(document.getElementById('sc-5').value === 'Win+Shift+S') scScore += 12.5;
+            if(document.getElementById('os-1').value === '.zip') scScore += 12.5;
+            if(document.getElementById('os-2').value === '.xlsx / .csv') scScore += 12.5;
+            if(document.getElementById('os-3').value === 'Manifest_SPX_Cikarang_22072026') scScore += 12.5;
 
-            // -------------------------------------------------------------
-            // MODUL 2: DATA ENTRY AWB / SKU / BIN (5 ROWS - CASE INSENSITIVE)
-            // -------------------------------------------------------------
+            // 2. MODUL TYPING
             var typeCorrect = 0;
-            var totalTypeFields = 25; // 5 rows x 5 fields
+            if(document.getElementById('type-awb-1').value.trim().toUpperCase() === 'SPXID001O998-XL') typeCorrect++;
+            if(document.getElementById('type-sku-1').value.trim().toUpperCase() === 'SHP-FSH-001O-BLK') typeCorrect++;
+            if(document.getElementById('type-bin-1').value.trim().toUpperCase() === 'BIN-A01-02-O') typeCorrect++;
+            if(document.getElementById('type-courier-1').value.trim().toLowerCase().includes('shopee')) typeCorrect++;
+            if(document.getElementById('type-qty-1').value == 12) typeCorrect++;
 
-            // Row 1
-            var ans_awb1 = document.getElementById('type-awb-1').value.trim().toUpperCase();
-            var ans_sku1 = document.getElementById('type-sku-1').value.trim().toUpperCase();
-            var ans_bin1 = document.getElementById('type-bin-1').value.trim().toUpperCase();
-            var ans_courier1 = document.getElementById('type-courier-1').value.trim().toLowerCase();
-            var ans_qty1 = document.getElementById('type-qty-1').value;
+            if(document.getElementById('type-awb-2').value.trim().toUpperCase() === 'JP288102938491-I') typeCorrect++;
+            if(document.getElementById('type-sku-2').value.trim().toUpperCase() === 'SHP-ELC-881I-WHT') typeCorrect++;
+            if(document.getElementById('type-bin-2').value.trim().toUpperCase() === 'BIN-B04-01-I') typeCorrect++;
+            if(document.getElementById('type-courier-2').value.trim().toLowerCase().includes('j&t') || document.getElementById('type-courier-2').value.trim().toLowerCase().includes('jnt')) typeCorrect++;
+            if(document.getElementById('type-qty-2').value == 1) typeCorrect++;
 
-            if(ans_awb1 === 'SPXID001O998-XL') typeCorrect++;
-            if(ans_sku1 === 'SHP-FSH-001O-BLK') typeCorrect++;
-            if(ans_bin1 === 'BIN-A01-02-O') typeCorrect++;
-            if(ans_courier1.indexOf('shopee') !== -1) typeCorrect++;
-            if(ans_qty1 == 12) typeCorrect++;
+            if(document.getElementById('type-awb-3').value.trim().toUpperCase() === 'AK009812739281-O') typeCorrect++;
+            if(document.getElementById('type-sku-3').value.trim().toUpperCase() === 'SHP-HOM-120O-RED') typeCorrect++;
+            if(document.getElementById('type-bin-3').value.trim().toUpperCase() === 'BIN-C02-05-O') typeCorrect++;
+            if(document.getElementById('type-courier-3').value.trim().toLowerCase().includes('anteraja')) typeCorrect++;
+            if(document.getElementById('type-qty-3').value == 5) typeCorrect++;
 
-            // Row 2
-            var ans_awb2 = document.getElementById('type-awb-2').value.trim().toUpperCase();
-            var ans_sku2 = document.getElementById('type-sku-2').value.trim().toUpperCase();
-            var ans_bin2 = document.getElementById('type-bin-2').value.trim().toUpperCase();
-            var ans_courier2 = document.getElementById('type-courier-2').value.trim().toLowerCase();
-            var ans_qty2 = document.getElementById('type-qty-2').value;
+            if(document.getElementById('type-awb-4').value.trim().toUpperCase() === 'ID210099881122-A') typeCorrect++;
+            if(document.getElementById('type-sku-4').value.trim().toUpperCase() === 'SHP-BTY-990O-PNK') typeCorrect++;
+            if(document.getElementById('type-bin-4').value.trim().toUpperCase() === 'BIN-D05-11-I') typeCorrect++;
+            if(document.getElementById('type-courier-4').value.trim().toLowerCase().includes('id express')) typeCorrect++;
+            if(document.getElementById('type-qty-4').value == 8) typeCorrect++;
 
-            if(ans_awb2 === 'JP288102938491-I') typeCorrect++;
-            if(ans_sku2 === 'SHP-ELC-881I-WHT') typeCorrect++;
-            if(ans_bin2 === 'BIN-B04-01-I') typeCorrect++;
-            if(ans_courier2.indexOf('j&t') !== -1 || ans_courier2.indexOf('jnt') !== -1) typeCorrect++;
-            if(ans_qty2 == 1) typeCorrect++;
+            if(document.getElementById('type-awb-5').value.trim().toUpperCase() === 'NLID0192837465-B') typeCorrect++;
+            if(document.getElementById('type-sku-5').value.trim().toUpperCase() === 'SHP-KID-771I-BLU') typeCorrect++;
+            if(document.getElementById('type-bin-5').value.trim().toUpperCase() === 'BIN-E08-09-O') typeCorrect++;
+            if(document.getElementById('type-courier-5').value.trim().toLowerCase().includes('ninja')) typeCorrect++;
+            if(document.getElementById('type-qty-5').value == 3) typeCorrect++;
 
-            // Row 3
-            var ans_awb3 = document.getElementById('type-awb-3').value.trim().toUpperCase();
-            var ans_sku3 = document.getElementById('type-sku-3').value.trim().toUpperCase();
-            var ans_bin3 = document.getElementById('type-bin-3').value.trim().toUpperCase();
-            var ans_courier3 = document.getElementById('type-courier-3').value.trim().toLowerCase();
-            var ans_qty3 = document.getElementById('type-qty-3').value;
+            var typeScore = Math.round((typeCorrect / 25) * 100);
 
-            if(ans_awb3 === 'AK009812739281-O') typeCorrect++;
-            if(ans_sku3 === 'SHP-HOM-120O-RED') typeCorrect++;
-            if(ans_bin3 === 'BIN-C02-05-O') typeCorrect++;
-            if(ans_courier3.indexOf('anteraja') !== -1) typeCorrect++;
-            if(ans_qty3 == 5) typeCorrect++;
-
-            // Row 4
-            var ans_awb4 = document.getElementById('type-awb-4').value.trim().toUpperCase();
-            var ans_sku4 = document.getElementById('type-sku-4').value.trim().toUpperCase();
-            var ans_bin4 = document.getElementById('type-bin-4').value.trim().toUpperCase();
-            var ans_courier4 = document.getElementById('type-courier-4').value.trim().toLowerCase();
-            var ans_qty4 = document.getElementById('type-qty-4').value;
-
-            if(ans_awb4 === 'ID210099881122-A') typeCorrect++;
-            if(ans_sku4 === 'SHP-BTY-990O-PNK') typeCorrect++;
-            if(ans_bin4 === 'BIN-D05-11-I') typeCorrect++;
-            if(ans_courier4.indexOf('id express') !== -1 || ans_courier4.indexOf('idxpress') !== -1) typeCorrect++;
-            if(ans_qty4 == 8) typeCorrect++;
-
-            // Row 5
-            var ans_awb5 = document.getElementById('type-awb-5').value.trim().toUpperCase();
-            var ans_sku5 = document.getElementById('type-sku-5').value.trim().toUpperCase();
-            var ans_bin5 = document.getElementById('type-bin-5').value.trim().toUpperCase();
-            var ans_courier5 = document.getElementById('type-courier-5').value.trim().toLowerCase();
-            var ans_qty5 = document.getElementById('type-qty-5').value;
-
-            if(ans_awb5 === 'NLID0192837465-B') typeCorrect++;
-            if(ans_sku5 === 'SHP-KID-771I-BLU') typeCorrect++;
-            if(ans_bin5 === 'BIN-E08-09-O') typeCorrect++;
-            if(ans_courier5.indexOf('ninja') !== -1) typeCorrect++;
-            if(ans_qty5 == 3) typeCorrect++;
-
-            var typeScore = Math.round((typeCorrect / totalTypeFields) * 100);
-
-            // -------------------------------------------------------------
-            // MODUL 3: EXCEL CAMPAIGN ADVANCED
-            // -------------------------------------------------------------
-            var ans_ex_stok1 = document.getElementById('ex-stok-1').value;
-            var ans_ex_status1 = document.getElementById('ex-status-1').value;
-            var ans_ex_stok2 = document.getElementById('ex-stok-2').value;
-            var ans_ex_status2 = document.getElementById('ex-status-2').value;
-            var ans_ex_stok3 = document.getElementById('ex-stok-3').value;
-            var ans_ex_status3 = document.getElementById('ex-status-3').value;
-            
-            // Format Sanitization untuk Input Rupiah
-            var raw_asset = document.getElementById('ex-asset-val').value;
-            var clean_asset = raw_asset.replace(/[^0-9]/g, '');
-            var ans_ex_formula = document.getElementById('ex-formula-q').value;
-
+            // 3. MODUL EXCEL
             var excelCorrect = 0;
-            if(ans_ex_stok1 == 15) excelCorrect += 1;
-            if(ans_ex_status1 === 'CRITICAL RESTOCK') excelCorrect += 1;
-            if(ans_ex_stok2 == 115) excelCorrect += 1;
-            if(ans_ex_status2 === 'OVERSTOCK') excelCorrect += 1;
-            if(ans_ex_stok3 == 10) excelCorrect += 1;
-            if(ans_ex_status3 === 'CRITICAL RESTOCK') excelCorrect += 1;
-            if(clean_asset === '1525000') excelCorrect += 1;
-            if(ans_ex_formula === 'INDEX_MATCH') excelCorrect += 1;
+            if(document.getElementById('ex-stok-1').value == 15) excelCorrect++;
+            if(document.getElementById('ex-status-1').value === 'CRITICAL RESTOCK') excelCorrect++;
+            if(document.getElementById('ex-stok-2').value == 115) excelCorrect++;
+            if(document.getElementById('ex-status-2').value === 'OVERSTOCK') excelCorrect++;
+            if(document.getElementById('ex-stok-3').value == 10) excelCorrect++;
+            if(document.getElementById('ex-status-3').value === 'CRITICAL RESTOCK') excelCorrect++;
+            
+            var clean_asset = document.getElementById('ex-asset-val').value.replace(/[^0-9]/g, '');
+            if(clean_asset === '1525000') excelCorrect++;
+            if(document.getElementById('ex-formula-q').value === 'INDEX_MATCH') excelCorrect++;
 
             var excelScore = Math.round((excelCorrect / 8) * 100);
 
-            // -------------------------------------------------------------
-            // MODUL 4: EMAIL SLA
-            // -------------------------------------------------------------
+            // 4. MODUL EMAIL
             var emailSubj = document.getElementById('email-subject').value.trim();
             var emailBody = document.getElementById('email-body').value.trim();
             var emailScore = 0;
             if(emailSubj.length > 5) emailScore += 40;
             if(emailBody.length > 25) emailScore += 60;
 
-            // Total Weighted Score
-            var finalWeighted = Math.round(
-                (scScore * 0.20) + 
-                (typeScore * 0.25) + 
-                (excelScore * 0.35) + 
-                (emailScore * 0.20)
-            );
+            var finalWeighted = Math.round((scScore * 0.20) + (typeScore * 0.25) + (excelScore * 0.35) + (emailScore * 0.20));
 
-            // Render Results di Halaman Website
+            // Populate Metadata Pelamar
             var opsid = document.getElementById('cand-opsid').value;
             var name = document.getElementById('cand-name').value;
             var age = document.getElementById('cand-age').value;
@@ -1099,7 +897,6 @@
             var education = document.getElementById('cand-education').value;
             var role = document.getElementById('cand-role').value;
             
-            // File Ijazah Processing
             var fileInput = document.getElementById('cand-ijazah');
             var fileIjazahData = null;
             var fileIjazahName = "Tidak Ada";
@@ -1112,10 +909,8 @@
             document.getElementById('res-phone').innerText = phone + " (" + age + " thn)";
             document.getElementById('res-role').innerText = role + " - " + education;
             
-            var minsStr = String(Math.floor(secondsElapsed / 60));
-            if(minsStr.length < 2) minsStr = '0' + minsStr;
-            var secsStr = String(secondsElapsed % 60);
-            if(secsStr.length < 2) secsStr = '0' + secsStr;
+            var minsStr = String(Math.floor(secondsElapsed / 60)).padStart(2, '0');
+            var secsStr = String(secondsElapsed % 60).padStart(2, '0');
             var timeTakenFormatted = minsStr + ':' + secsStr;
 
             document.getElementById('res-time-taken').innerText = timeTakenFormatted;
@@ -1124,97 +919,30 @@
             document.getElementById('res-excel-score').innerText = excelScore + ' / 100';
             document.getElementById('res-final-score').innerText = finalWeighted + '%';
 
-            // Grade Badge
-            var gradeText = "";
-            var badge = document.getElementById('res-grade-badge');
-            if(finalWeighted >= 85) {
-                gradeText = "SIAP KERJA (Sangat Direkomendasikan)";
-                badge.innerText = gradeText;
-                badge.className = "inline-block bg-emerald-500 text-white text-[11px] px-2.5 py-0.5 rounded-full font-semibold";
-            } else if(finalWeighted >= 65) {
-                gradeText = "LULUS SYARAT (Dipertimbangkan)";
-                badge.innerText = gradeText;
-                badge.className = "inline-block bg-amber-500 text-white text-[11px] px-2.5 py-0.5 rounded-full font-semibold";
-            } else {
-                gradeText = "TIDAK LULUS (Perlu Pelatihan Tambahan)";
-                badge.innerText = gradeText;
-                badge.className = "inline-block bg-red-500 text-white text-[11px] px-2.5 py-0.5 rounded-full font-semibold";
-            }
+            var gradeText = finalWeighted >= 85 ? "SIAP KERJA (Sangat Direkomendasikan)" : (finalWeighted >= 65 ? "LULUS SYARAT (Dipertimbangkan)" : "TIDAK LULUS (Perlu Pelatihan Tambahan)");
+            document.getElementById('res-grade-badge').innerText = gradeText;
 
-            // Qualitative Explanations
-            var osEvalText = scScore >= 75 ? 
-                "Sangat lincah menggunakan keyboard shortcut (termasuk F4 absolute) dan manajemen berkas sistem." : 
-                "Lambat dalam navigasi keyboard, perlu pelatihan shortcut Excel dasar.";
-
-            var typeEvalText = typeScore >= 80 ? 
-                "Akurasi karakter sangat presisi (" + typeCorrect + " dari 25 field tepat). Teruji mampu membedakan angka 0/1 dengan huruf O/I." : 
-                "Terdapat kesalahan input karakter kritis (" + typeCorrect + " dari 25 field tepat). Riskan salah kirim barang di gudang.";
-
-            var excelEvalText = excelScore >= 75 ? 
-                "Sangat menguasai logika kalkulasi stok multi-variabel (damaged/safety limit) dan fungsi INDEX MATCH." : 
-                "Kurang teliti dalam perhitungan logika stok terpotong damaged/rusak atau rumus lookup Excel.";
-
-            var emailEvalText = emailScore >= 80 ? 
-                "Mampu menyusun laporan eskalasi kendala stok & SLA dengan terstruktur dan solutif." : 
-                "Pesan eskalasi kurang mendetail atau tidak memuat informasi risiko penalti SLA.";
+            var osEvalText = scScore >= 75 ? "Sangat lincah menggunakan keyboard shortcut & file OS." : "Lambat dalam navigasi keyboard, perlu pelatihan dasar.";
+            var typeEvalText = typeScore >= 80 ? "Akurasi karakter sangat presisi (" + typeCorrect + "/25 tepat)." : "Banyak kesalahan input karakter kritis (" + typeCorrect + "/25 tepat).";
+            var excelEvalText = excelScore >= 75 ? "Menguasai logika kalkulasi stok & fungsi INDEX MATCH." : "Kurang teliti dalam kalkulasi stok dan rumus lookup.";
+            var emailEvalText = emailScore >= 80 ? "Laporan eskalasi terstruktur dan solutif." : "Laporan kurang mendetail.";
 
             document.getElementById('eval-os-text').innerText = osEvalText;
             document.getElementById('eval-type-text').innerText = typeEvalText;
             document.getElementById('eval-excel-text').innerText = excelEvalText;
             document.getElementById('eval-email-text').innerText = emailEvalText;
 
-            // Kirim Hasil ke Google Apps Script / Google Sheets
             sendResultsToGoogleScript({
-                opsid: opsid,
-                name: name,
-                age: age,
-                phone: phone,
-                education: education,
-                role: role,
-                fileIjazahName: fileIjazahName,
-                fileIjazahData: fileIjazahData,
-                timeTaken: timeTakenFormatted,
-                finalWeighted: finalWeighted,
-                gradeText: gradeText,
-                scScore: scScore,
-                typeScore: typeScore,
-                excelScore: excelScore,
-                emailScore: emailScore,
-                osEvalText: osEvalText,
-                typeEvalText: typeEvalText,
-                excelEvalText: excelEvalText,
-                emailEvalText: emailEvalText,
-
-                // Rincian Jawaban
-                ans_sc1: ans_sc1 + (ans_sc1 === 'Ctrl+F' ? ' [BENAR]' : ' [SALAH]'),
-                ans_sc2: ans_sc2 + (ans_sc2 === 'Alt+Tab' ? ' [BENAR]' : ' [SALAH]'),
-                ans_sc3: ans_sc3 + (ans_sc3 === 'F4' ? ' [BENAR]' : ' [SALAH]'),
-                ans_sc4: ans_sc4 + (ans_sc4 === 'Ctrl+A' ? ' [BENAR]' : ' [SALAH]'),
-                ans_sc5: ans_sc5 + (ans_sc5 === 'Win+Shift+S' ? ' [BENAR]' : ' [SALAH]'),
-                ans_os1: ans_os1 + (ans_os1 === '.zip' ? ' [BENAR]' : ' [SALAH]'),
-                ans_os2: ans_os2 + (ans_os2 === '.xlsx / .csv' ? ' [BENAR]' : ' [SALAH]'),
-                ans_os3: ans_os3 + (ans_os3 === 'Manifest_SPX_Cikarang_22072026' ? ' [BENAR]' : ' [SALAH]'),
-
-                ans_pkg1: "AWB: " + ans_awb1 + " | SKU: " + ans_sku1 + " | BIN: " + ans_bin1 + " | Courier: " + ans_courier1 + " | Qty: " + ans_qty1,
-                ans_pkg2: "AWB: " + ans_awb2 + " | SKU: " + ans_sku2 + " | BIN: " + ans_bin2 + " | Courier: " + ans_courier2 + " | Qty: " + ans_qty2,
-                ans_pkg3: "AWB: " + ans_awb3 + " | SKU: " + ans_sku3 + " | BIN: " + ans_bin3 + " | Courier: " + ans_courier3 + " | Qty: " + ans_qty3,
-                ans_pkg4: "AWB: " + ans_awb4 + " | SKU: " + ans_sku4 + " | BIN: " + ans_bin4 + " | Courier: " + ans_courier4 + " | Qty: " + ans_qty4,
-                ans_pkg5: "AWB: " + ans_awb5 + " | SKU: " + ans_sku5 + " | BIN: " + ans_bin5 + " | Courier: " + ans_courier5 + " | Qty: " + ans_qty5,
-
-                ans_ex1: "Stok: " + ans_ex_stok1 + " (Kunci: 15) | Status: " + ans_ex_status1 + " (Kunci: CRITICAL RESTOCK)",
-                ans_ex2: "Stok: " + ans_ex_stok2 + " (Kunci: 115) | Status: " + ans_ex_status2 + " (Kunci: OVERSTOCK)",
-                ans_ex3: "Stok: " + ans_ex_stok3 + " (Kunci: 10) | Status: " + ans_ex_status3 + " (Kunci: CRITICAL RESTOCK)",
-                ans_ex_asset: raw_asset + (clean_asset === '1525000' ? ' [BENAR]' : ' [SALAH - Kunci: 1525000]'),
-                ans_ex_formula: ans_ex_formula + (ans_ex_formula === 'INDEX_MATCH' ? ' [BENAR]' : ' [SALAH - Kunci: INDEX_MATCH]'),
-
-                emailSubj: emailSubj,
-                emailBody: emailBody
+                opsid: opsid, name: name, age: age, phone: phone, education: education, role: role,
+                fileIjazahName: fileIjazahName, fileIjazahData: fileIjazahData, timeTaken: timeTakenFormatted,
+                finalWeighted: finalWeighted, gradeText: gradeText, scScore: scScore, typeScore: typeScore,
+                excelScore: excelScore, emailScore: emailScore, osEvalText: osEvalText, typeEvalText: typeEvalText,
+                excelEvalText: excelEvalText, emailEvalText: emailEvalText, emailSubj: emailSubj, emailBody: emailBody
             });
 
             switchStep(6);
         }
 
-        // Send Data to Google Apps Script Web App
         function sendResultsToGoogleScript(data) {
             var alertBox = document.getElementById('email-status-alert');
             alertBox.className = "my-4 p-4 rounded-lg text-sm font-medium bg-blue-100 text-blue-800 border border-blue-300";
@@ -1224,36 +952,21 @@
             fetch(GAS_WEB_APP_URL, {
                 method: "POST",
                 mode: "no-cors",
-                headers: {
-                    "Content-Type": "application/json"
-                },
+                headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(data)
             })
             .then(function() {
                 alertBox.className = "my-4 p-4 rounded-lg text-sm font-medium bg-emerald-100 text-emerald-800 border border-emerald-300";
-                alertBox.innerHTML = '<i class="fa-solid fa-circle-check"></i> <strong>Berhasil!</strong> Hasil tes kandidat <strong>' + data.name + '</strong> telah berhasil tersimpan di Google Sheets.';
-                
-                // Un-lock submit button
-                var submitBtn = document.getElementById('btn-submit-test');
-                var submitText = document.getElementById('btn-submit-text');
-                if(submitBtn) {
-                    submitBtn.disabled = false;
-                    submitBtn.classList.remove('opacity-50', 'cursor-not-allowed');
-                }
-                if(submitText) submitText.innerText = "Selesaikan Tes & Buat Hasil HR";
+                alertBox.innerHTML = '<i class="fa-solid fa-circle-check"></i> <strong>Berhasil!</strong> Hasil tes kandidat telah tersimpan di Google Sheets.';
             })
             .catch(function(error) {
-                console.error("Error Transmitting Data: ", error);
                 alertBox.className = "my-4 p-4 rounded-lg text-sm font-medium bg-red-100 text-red-800 border border-red-300";
-                alertBox.innerHTML = '<i class="fa-solid fa-triangle-exclamation"></i> <strong>Gagal Mengirim Data:</strong> Mohon periksa koneksi internet Anda.';
+                alertBox.innerHTML = '<i class="fa-solid fa-triangle-exclamation"></i> <strong>Gagal Mengirim Data:</strong> Mohon periksa koneksi internet.';
             });
         }
 
-        // Reset Form
         function resetTest() {
-            if(confirm("Kosongkan form untuk menguji kandidat berikutnya?")) {
-                location.reload();
-            }
+            if(confirm("Kosongkan form untuk menguji kandidat berikutnya?")) location.reload();
         }
     </script>
 </body>
