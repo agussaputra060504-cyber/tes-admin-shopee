@@ -201,18 +201,18 @@
 
                     <div class="bg-orange-50 p-4 rounded-lg border border-orange-200 text-xs text-orange-900 space-y-2 mt-4">
                         <p class="font-bold flex items-center gap-1.5 text-orange-900">
-                            <i class="fa-solid fa-circle-info"></i> Ketentuan Tes Level Tingkat Lanjut:
+                            <i class="fa-solid fa-shield-halved text-red-600"></i> Ketentuan Sistem Proteksi Ujian:
                         </p>
                         <ul class="list-disc pl-5 space-y-1">
-                            <li>Tes ini menguji pembedaan karakter kritis (huruf <b>O</b> vs angka <b>0</b>, huruf <b>I</b>/<b>l</b> vs angka <b>1</b>), logika multi-kondisi stok, dan penanganan problem gudang.</li>
-                            <li>Dilarang melakukan Copy-Paste pada modul input data. Seluruh karakter wajib diketik manual.</li>
-                            <li>Dilarang berpindah tab browser / aplikasi saat ujian berlangsung.</li>
+                            <li>Sistem akan otomatis beralih ke <b>Mode Fullscreen (Layar Penuh)</b>. Dilarang menekan <code>ESC</code> atau mengandangkan mode layar penuh.</li>
+                            <li>Dilarang berpindah tab browser / muka aplikasi lain. Jika melanggar lebih dari 1x, <b>tes akan langsung DIGUGURKAN dan otomatis disubmit</b>.</li>
+                            <li>Seluruh data input wajib diketik manual (Dilarang fitur Copy-Paste).</li>
                         </ul>
                     </div>
 
                     <button type="submit" class="w-full bg-orange-600 hover:bg-orange-700 text-white font-bold py-3 rounded-lg transition shadow-md flex items-center justify-center gap-2">
-                        <span>Mulai Tes Advanced Admin Shopee</span>
-                        <i class="fa-solid fa-arrow-right"></i>
+                        <span>Mulai Tes Advanced Admin Shopee (Layar Penuh)</span>
+                        <i class="fa-solid fa-expand"></i>
                     </button>
                 </form>
             </div>
@@ -760,7 +760,7 @@
                 submitBtn.addEventListener('click', finishAndGenerateReport);
             }
 
-            // Proteksi Copy & Paste pada Seluruh Halaman Ujian
+            // Proteksi 1: Blokir Klik Kanan, Copy, Cut, & Paste
             document.addEventListener('contextmenu', e => e.preventDefault());
             document.addEventListener('copy', e => e.preventDefault());
             document.addEventListener('cut', e => e.preventDefault());
@@ -773,19 +773,48 @@
                 });
             });
 
-            // Proteksi Pindah Tab / Browser Anti-Curang
+            // Proteksi 2: Deteksi Pindah Tab & Pindah Aplikasi (Strict Mode - Auto Submit pada Pelanggaran 2x)
             document.addEventListener('visibilitychange', function() {
                 if (document.hidden && testStarted && currentStep < 6) {
                     tabSwitchCount++;
-                    if(tabSwitchCount >= 3) {
-                        alert("⚠️ PELANGGARAN SERIUS!\n\nAnda telah berpindah tab sebanyak 3 kali. Tes akan dihentikan dan jawaban otomatis disubmit.");
+                    if(tabSwitchCount >= 2) {
+                        alert("🚨 PELANGGARAN SERIUS ANTI-CURANG!\n\nAnda terdeteksi berpindah tab/aplikasi sebanyak 2 kali. Ujian dihentikan dan jawaban Anda akan langsung di-submit secara otomatis!");
                         finishAndGenerateReport();
                     } else {
-                        alert("⚠️ PERINGATAN ANTI-CURANG (" + tabSwitchCount + "/3)!\n\nDilarang berpindah tab browser/aplikasi saat ujian berlangsung.");
+                        alert("⚠️ PERINGATAN KERAS ANTI-CURANG (Pelanggaran 1/2)!\n\nDilarang berpindah tab, membuka Google, atau membuka aplikasi lain saat ujian berlangsung.\n\nJika Anda berpindah tab Sekali Lagi, ujian akan LANGSUNG DITUTUP & DISUBMIT OTOMATIS!");
                     }
                 }
             });
+
+            // Proteksi 3: Deteksi Keluar Dari Mode Fullscreen (Layar Penuh)
+            document.addEventListener('fullscreenchange', handleFullscreenExit);
+            document.addEventListener('webkitfullscreenchange', handleFullscreenExit);
+            document.addEventListener('msfullscreenchange', handleFullscreenExit);
         });
+
+        // Mengaktifkan Fullscreen (Layar Penuh)
+        function enterFullscreen() {
+            var elem = document.documentElement;
+            if (elem.requestFullscreen) {
+                elem.requestFullscreen();
+            } else if (elem.webkitRequestFullscreen) { /* Safari / Chrome */
+                elem.webkitRequestFullscreen();
+            } else if (elem.msRequestFullscreen) { /* IE11 */
+                elem.msRequestFullscreen();
+            }
+        }
+
+        // Handler Jika Peserta Menekan ESC atau Keluar Dari Fullscreen
+        function handleFullscreenExit() {
+            var isFullscreen = document.fullscreenElement || document.webkitFullscreenElement || document.msFullscreenElement;
+            if (!isFullscreen && testStarted && currentStep < 6) {
+                alert("⚠️ DILARANG KELUAR DARI MODE LAYAR PENUAH (FULLSCREEN)!\n\nKembali ke layar penuh untuk melanjutkan ujian.");
+                // Coba paksa masuk kembali ke fullscreen
+                setTimeout(function() {
+                    enterFullscreen();
+                }, 500);
+            }
+        }
 
         // Validasi Form Identitas (Step 1)
         function validateCandidateForm() {
@@ -854,6 +883,9 @@
             
             if(!validateCandidateForm()) return false;
 
+            // Aktifkan Mode Fullscreen
+            enterFullscreen();
+
             var name = document.getElementById('cand-name').value.trim();
             document.getElementById('header-candidate-name').innerText = name;
             testStarted = true;
@@ -912,6 +944,11 @@
             if(submitText) submitText.innerText = "Mengirim Data Hasil Ujian...";
 
             if(timerInterval) clearInterval(timerInterval);
+
+            // Exit Fullscreen saat tes selesai
+            if (document.exitFullscreen) {
+                document.exitFullscreen().catch(err => Promise.resolve());
+            }
 
             // 1. MODUL OS & SHORTCUT
             var scScore = 0;
@@ -1030,7 +1067,8 @@
                 fileIjazahName: fileIjazahName, fileIjazahData: fileIjazahData, timeTaken: timeTakenFormatted,
                 finalWeighted: finalWeighted, gradeText: gradeText, scScore: scScore, typeScore: typeScore,
                 excelScore: excelScore, emailScore: emailScore, osEvalText: osEvalText, typeEvalText: typeEvalText,
-                excelEvalText: excelEvalText, emailEvalText: emailEvalText, emailSubj: emailSubj, emailBody: emailBody
+                excelEvalText: excelEvalText, emailEvalText: emailEvalText, emailSubj: emailSubj, emailBody: emailBody,
+                tabSwitchCount: tabSwitchCount
             });
 
             switchStep(6);
