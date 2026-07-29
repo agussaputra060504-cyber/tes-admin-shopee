@@ -8,62 +8,63 @@
   <style>
     /* Anti-Select Text */
     body { -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none; }
-    input, textarea { -webkit-user-select: text; -moz-user-select: text; -ms-user-select: text; user-select: text; }
+    input, textarea, select { -webkit-user-select: text; -moz-user-select: text; -ms-user-select: text; user-select: text; }
     .step-content { display: none; }
     .step-content.active { display: block; }
-    .input-cell { border: 1px solid #cbd5e1; padding: 6px 8px; text-align: center; font-size: 13px; }
   </style>
 </head>
-<body class="bg-slate-100 text-slate-800 font-sans min-h-screen pb-12" oncontextmenu="return false;">
+<body class="bg-[#eef2f6] text-slate-800 font-sans min-h-screen pb-12" oncontextmenu="return false;">
 
-  <!-- Header & Floating Timer Bar -->
-  <header class="bg-blue-900 text-white sticky top-0 z-50 shadow-md px-4 py-3">
-    <div class="max-w-5xl mx-auto flex justify-between items-center">
+  <!-- Header Persis Tampilan Asli -->
+  <header class="bg-[#1e3a8a] text-white shadow-md px-8 py-5">
+    <div class="max-w-6xl mx-auto flex justify-between items-center">
       <div>
-        <h1 class="text-lg font-bold">UJI KOMPETENSI OPERASIONAL & WMS</h1>
-        <p class="text-xs text-blue-200">Sistem Evaluasi Praktek Kandidat Admin Gudang</p>
+        <h1 class="text-xl font-bold tracking-wide">UJI KOMPETENSI OPERASIONAL & WMS</h1>
+        <p class="text-xs text-blue-200 mt-1">Sistem Evaluasi Praktek Kandidat Admin Gudang</p>
       </div>
-      <div id="timerContainer" class="hidden bg-red-600 text-white font-mono px-3 py-1 rounded text-sm font-bold animate-pulse">
+      <div id="timerContainer" class="hidden bg-red-600 text-white font-mono px-4 py-2 rounded-md text-sm font-bold shadow animate-pulse">
         Sisa Waktu: <span id="timeDisplay">20:00</span>
       </div>
     </div>
   </header>
 
-  <!-- Warning Tab Switch Popup -->
-  <div id="tabWarningModal" class="fixed inset-0 bg-black/70 z-50 hidden flex items-center justify-center p-4">
+  <!-- Pop-up Warning Pindah Tab -->
+  <div id="tabWarningModal" class="fixed inset-0 bg-black/60 z-50 hidden flex items-center justify-center p-4">
     <div class="bg-white rounded-lg p-6 max-w-md text-center shadow-xl border-2 border-red-500">
-      <h3 class="text-xl font-bold text-red-600 mb-2">⚠️ Peringatan Dilarang Pindah Tab!</h3>
-      <p class="text-sm text-slate-600 mb-4">Sistem mendeteksi Anda meninggalkan halaman tes. Semua aktivitas tercatat dalam log kecurangan HR.</p>
-      <button onclick="closeTabWarning()" class="bg-red-600 text-white px-4 py-2 rounded text-sm font-bold hover:bg-red-700">Saya Mengerti & Lanjut Tes</button>
+      <h3 class="text-lg font-bold text-red-600 mb-2">⚠️ Peringatan Pindah Tab!</h3>
+      <p class="text-xs text-slate-600 mb-4">Sistem mendeteksi Anda meninggalkan halaman tes. Semua aktivitas dicatat dalam sistem evaluasi HR.</p>
+      <button type="button" onclick="closeTabWarning()" class="bg-red-600 text-white px-4 py-2 rounded text-xs font-bold hover:bg-red-700">Saya Mengerti & Lanjut Tes</button>
     </div>
   </div>
 
-  <main class="max-w-5xl mx-auto mt-6 px-4">
+  <!-- Form Container Utama -->
+  <main class="max-w-5xl mx-auto mt-8 px-4">
     <form id="assessmentForm" onsubmit="return false;">
 
-      <!-- STEP 1: DATA DIRI & IJAZAH -->
-      <div id="step1" class="step-content active bg-white p-6 rounded-lg shadow-sm border border-slate-200">
-        <h2 class="text-xl font-bold text-slate-800 mb-4 border-b pb-2">Step 1: Identitas & Data Diri Pelamar</h2>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <!-- STEP 1: DATA DIRI & IJAZAH (Tampilan Persis Screenshot) -->
+      <div id="step1" class="step-content active bg-white p-8 rounded-xl shadow-sm border border-slate-200">
+        <h2 class="text-lg font-bold text-slate-800 mb-6 border-b pb-3">Step 1: Identitas & Data Diri Pelamar</h2>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
           <div>
-            <label class="block text-xs font-bold text-slate-700 uppercase mb-1">OPS ID / No Kandidat *</label>
-            <input type="text" id="opsid" class="w-full border rounded p-2 text-sm" placeholder="Contoh: OPS558731">
+            <label class="block text-[11px] font-bold text-slate-700 uppercase mb-1.5 tracking-wider">OPS ID / NO KANDIDAT *</label>
+            <input type="text" id="opsid" class="w-full border border-slate-300 rounded-md p-2.5 text-xs focus:ring-2 focus:ring-blue-500 focus:outline-none" placeholder="Contoh: OPS558731">
           </div>
           <div>
-            <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Nama Lengkap *</label>
-            <input type="text" id="name" class="w-full border rounded p-2 text-sm" placeholder="Nama Sesuai KTP">
+            <label class="block text-[11px] font-bold text-slate-700 uppercase mb-1.5 tracking-wider">NAMA LENGKAP *</label>
+            <input type="text" id="name" class="w-full border border-slate-300 rounded-md p-2.5 text-xs focus:ring-2 focus:ring-blue-500 focus:outline-none" placeholder="Nama Sesuai KTP">
           </div>
           <div>
-            <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Nomor WhatsApp / HP *</label>
-            <input type="text" id="phone" class="w-full border rounded p-2 text-sm" placeholder="08xxxxxxxxxx">
+            <label class="block text-[11px] font-bold text-slate-700 uppercase mb-1.5 tracking-wider">NOMOR WHATSAPP / HP *</label>
+            <input type="text" id="phone" class="w-full border border-slate-300 rounded-md p-2.5 text-xs focus:ring-2 focus:ring-blue-500 focus:outline-none" placeholder="08xxxxxxxxxx">
           </div>
           <div>
-            <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Umur (Tahun) *</label>
-            <input type="number" id="age" class="w-full border rounded p-2 text-sm" placeholder="Contoh: 23">
+            <label class="block text-[11px] font-bold text-slate-700 uppercase mb-1.5 tracking-wider">UMUR (TAHUN) *</label>
+            <input type="number" id="age" class="w-full border border-slate-300 rounded-md p-2.5 text-xs focus:ring-2 focus:ring-blue-500 focus:outline-none" placeholder="Contoh: 23">
           </div>
           <div>
-            <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Pendidikan Terakhir *</label>
-            <select id="education" class="w-full border rounded p-2 text-sm">
+            <label class="block text-[11px] font-bold text-slate-700 uppercase mb-1.5 tracking-wider">PENDIDIKAN TERAKHIR *</label>
+            <select id="education" class="w-full border border-slate-300 rounded-md p-2.5 text-xs focus:ring-2 focus:ring-blue-500 focus:outline-none bg-white">
               <option value="">-- Pilih Pendidikan --</option>
               <option value="SMA/SMK">SMA/SMK Sederajat</option>
               <option value="D3">Diploma (D3)</option>
@@ -71,112 +72,120 @@
             </select>
           </div>
           <div>
-            <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Posisi Dilamar *</label>
-            <input type="text" id="role" class="w-full border rounded p-2 text-sm" value="Admin Gudang / WMS Operator" readonly>
+            <label class="block text-[11px] font-bold text-slate-700 uppercase mb-1.5 tracking-wider">POSISI DILAMAR *</label>
+            <input type="text" id="role" class="w-full border border-slate-200 bg-slate-50 text-slate-600 rounded-md p-2.5 text-xs cursor-not-allowed" value="Admin Gudang / WMS Operator" readonly>
           </div>
           <div class="md:col-span-2">
-            <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Upload Foto Ijazah (Max 2MB) *</label>
-            <input type="file" id="fileIjazah" accept="image/*" class="w-full border rounded p-2 text-sm bg-slate-50">
+            <label class="block text-[11px] font-bold text-slate-700 uppercase mb-1.5 tracking-wider">UPLOAD FOTO IJAZAH (MAX 2MB) *</label>
+            <div class="border border-slate-200 bg-slate-50 p-2.5 rounded-md">
+              <input type="file" id="fileIjazah" accept="image/*" class="text-xs text-slate-600 file:mr-4 file:py-1.5 file:px-3 file:rounded file:border-0 file:text-xs file:font-semibold file:bg-white file:text-slate-700 hover:file:bg-slate-100 cursor-pointer">
+            </div>
           </div>
         </div>
-        <div id="step1Error" class="text-red-500 text-xs mt-3 hidden font-semibold"></div>
-        <button type="button" onclick="validateAndGoStep2()" class="mt-6 bg-blue-600 text-white font-bold px-6 py-2 rounded text-sm hover:bg-blue-700 float-right">Mulai Tes (Step 2) &rarr;</button>
-        <div class="clear-both"></div>
+
+        <!-- Pesan Error Validasi Ketat -->
+        <div id="step1Error" class="text-red-500 text-xs mt-4 font-semibold hidden bg-red-50 p-2.5 rounded border border-red-200"></div>
+
+        <div class="mt-8 flex justify-end">
+          <button type="button" onclick="validateAndGoStep2()" class="bg-[#2563eb] text-white font-semibold px-6 py-2.5 rounded-lg text-xs hover:bg-blue-700 transition shadow-sm">
+            Mulai Tes (Step 2) &rarr;
+          </button>
+        </div>
       </div>
 
-      <!-- STEP 2: MODUL SHORTCUT & WMS LOGISTIK -->
-      <div id="step2" class="step-content bg-white p-6 rounded-lg shadow-sm border border-slate-200">
-        <h2 class="text-xl font-bold text-slate-800 mb-2 border-b pb-2">Step 2: Modul Navigasi & Operasional WMS</h2>
+      <!-- STEP 2: MODUL OS & OPERASIONAL WMS -->
+      <div id="step2" class="step-content bg-white p-8 rounded-xl shadow-sm border border-slate-200">
+        <h2 class="text-lg font-bold text-slate-800 mb-4 border-b pb-3">Step 2: Modul Navigasi & Operasional WMS</h2>
         
-        <h3 class="font-bold text-sm text-blue-900 mt-4 mb-2">A. Pilihan Ganda: Pengetahuan Sistem & Status WMS Shopee</h3>
-        <div class="space-y-4 mb-6">
+        <div class="space-y-5 mb-6">
           <div>
-            <p class="text-xs font-semibold mb-1">1. Pada WMS/FMS Shopee, apa tindakan admin jika pesanan berstatus "Cancellation Requested by Buyer" sedangkan barang sudah selesai dipacking?</p>
-            <select id="ans_os1" class="w-full border rounded p-2 text-xs">
+            <p class="text-xs font-semibold mb-1.5 text-slate-700">1. Pada WMS Shopee, apa tindakan admin jika status pesanan menunjukkan "Cancellation Requested by Buyer" saat barang sudah dipacking?</p>
+            <select id="ans_os1" class="w-full border border-slate-300 rounded-md p-2.5 text-xs focus:ring-2 focus:ring-blue-500 focus:outline-none">
               <option value="">-- Pilih Jawaban --</option>
               <option value="A">Langsung serahkan ke kurir ekspedisi tanpa konfirmasi</option>
-              <option value="B">Tahan paket, ajukan penolakan pembatalan di sistem jika paket sudah di-handover, atau terima pembatalan jika belum diserahkan</option>
-              <option value="C">Hapus data resi dari sistem Excel lokal</option>
+              <option value="B">Tahan paket, ajukan penolakan pembatalan jika sudah diserahkan ke ekspedisi / terima pembatalan jika belum handover</option>
+              <option value="C">Hapus data resi dari tabel lokal</option>
             </select>
           </div>
           <div>
-            <p class="text-xs font-semibold mb-1">2. Kombinasi tombol shortcut keyboard untuk berpindah antartab pada browser/sistem WMS secara cepat adalah...</p>
-            <select id="ans_sc1" class="w-full border rounded p-2 text-xs">
+            <p class="text-xs font-semibold mb-1.5 text-slate-700">2. Kombinasi shortcut keyboard untuk berpindah tab browser dengan cepat adalah...</p>
+            <select id="ans_sc1" class="w-full border border-slate-300 rounded-md p-2.5 text-xs focus:ring-2 focus:ring-blue-500 focus:outline-none">
               <option value="">-- Pilih Jawaban --</option>
               <option value="Ctrl+Tab">Ctrl + Tab</option>
               <option value="Alt+F4">Alt + F4</option>
               <option value="Ctrl+P">Ctrl + P</option>
             </select>
           </div>
-        </div>
-
-        <h3 class="font-bold text-sm text-blue-900 mb-2">B. Kasus Perhitungan Volumetric Ekspedisi</h3>
-        <div class="bg-blue-50 p-4 rounded border border-blue-200 mb-4">
-          <p class="text-xs text-slate-700"><strong>Soal Kasus:</strong> Sebuah barang memiliki dimensi Paket: <strong>Panjang = 40 cm, Lebar = 30 cm, Tinggi = 20 cm</strong>. Rumus Volumetrik Ekspedisi standar adalah: <code>(P x L x T) / 6000</code>.</p>
-          <div class="mt-2">
-            <label class="block text-xs font-bold mb-1">Berapakah Berat Volumetrik Paket Tersebut? (dalam Kg)</label>
-            <input type="number" id="ans_volumetric" class="border rounded p-2 text-xs w-48" placeholder="Masukkan Angka Saja">
+          <div class="bg-slate-50 p-4 rounded-lg border border-slate-200">
+            <p class="text-xs text-slate-700 mb-2"><strong>Kasus Volumetrik:</strong> Paket memiliki dimensi <strong>40 cm x 30 cm x 20 cm</strong>. Rumus volumetrik adalah <code>(P x L x T) / 6000</code>.</p>
+            <label class="block text-xs font-bold text-slate-700 mb-1">Berapa berat volumetrik paket? (Kg)</label>
+            <input type="number" id="ans_volumetric" class="border border-slate-300 rounded-md p-2 text-xs w-48 focus:ring-2 focus:ring-blue-500 focus:outline-none" placeholder="Masukkan angka">
           </div>
         </div>
 
-        <button type="button" onclick="goToStep(3)" class="bg-blue-600 text-white font-bold px-6 py-2 rounded text-sm hover:bg-blue-700 float-right">Lanjut Step 3 &rarr;</button>
-        <div class="clear-both"></div>
+        <div class="flex justify-end">
+          <button type="button" onclick="goToStep(3)" class="bg-[#2563eb] text-white font-semibold px-6 py-2.5 rounded-lg text-xs hover:bg-blue-700 transition">
+            Lanjut Step 3 &rarr;
+          </button>
+        </div>
       </div>
 
-      <!-- STEP 3: MODUL KETELITIAN INPUT DATA RESI (MEASURE WPM) -->
-      <div id="step3" class="step-content bg-white p-6 rounded-lg shadow-sm border border-slate-200">
-        <h2 class="text-xl font-bold text-slate-800 mb-1">Step 3: Ketelitian & Kecepatan Input Data Resi</h2>
-        <p class="text-xs text-slate-500 mb-4">Salin ulang data tabel resi berikut ke kolom input di bawahnya secara presisi dan cepat. Ketikan Anda akan diukur kecepatannya (WPM).</p>
+      <!-- STEP 3: INPUT RESI & KETELITIAN -->
+      <div id="step3" class="step-content bg-white p-8 rounded-xl shadow-sm border border-slate-200">
+        <h2 class="text-lg font-bold text-slate-800 mb-2 border-b pb-3">Step 3: Ketelitian & Kecepatan Input Resi</h2>
+        <p class="text-xs text-slate-500 mb-4">Salin data tabel resi di bawah ini ke kolom input secara presisi dan cepat (Kecepatan WPM dihitung otomatis).</p>
 
-        <div class="overflow-x-auto mb-4">
-          <table class="w-full text-xs text-left border-collapse border border-slate-300 bg-slate-50">
-            <thead class="bg-slate-200 text-slate-700 font-bold">
+        <div class="overflow-x-auto mb-4 border border-slate-200 rounded-lg">
+          <table class="w-full text-xs text-left border-collapse bg-slate-50">
+            <thead class="bg-slate-100 text-slate-700 font-bold border-b border-slate-200">
               <tr>
-                <th class="p-2 border">No Paket</th>
-                <th class="p-2 border">Nomor Resi / Waybill</th>
-                <th class="p-2 border">SKU Barang</th>
-                <th class="p-2 border">Kode Bin / Rak</th>
+                <th class="p-2.5 border-r border-slate-200">No Paket</th>
+                <th class="p-2.5 border-r border-slate-200">Nomor Resi / Waybill</th>
+                <th class="p-2.5 border-r border-slate-200">SKU Barang</th>
+                <th class="p-2.5">Kode Bin / Rak</th>
               </tr>
             </thead>
-            <tbody>
-              <tr><td class="p-2 border">PKG-001</td><td class="p-2 border font-mono">SPXID0399882101</td><td class="p-2 border">SKU-SHP-BLK-M</td><td class="p-2 border">BIN-A-12-01</td></tr>
-              <tr><td class="p-2 border">PKG-002</td><td class="p-2 border font-mono">JX992011882012A</td><td class="p-2 border">SKU-KOS-WHT-L</td><td class="p-2 border">BIN-B-04-03</td></tr>
-              <tr><td class="p-2 border">PKG-003</td><td class="p-2 border font-mono">NLID88291028300</td><td class="p-2 border">SKU-TAS-RED-OS</td><td class="p-2 border">BIN-C-01-09</td></tr>
+            <tbody class="divide-y divide-slate-200">
+              <tr><td class="p-2.5 border-r border-slate-200">PKG-001</td><td class="p-2.5 font-mono border-r border-slate-200">SPXID0399882101</td><td class="p-2.5 border-r border-slate-200">SKU-SHP-BLK-M</td><td class="p-2.5">BIN-A-12-01</td></tr>
+              <tr><td class="p-2.5 border-r border-slate-200">PKG-002</td><td class="p-2.5 font-mono border-r border-slate-200">JX992011882012A</td><td class="p-2.5 border-r border-slate-200">SKU-KOS-WHT-L</td><td class="p-2.5">BIN-B-04-03</td></tr>
+              <tr><td class="p-2.5 border-r border-slate-200">PKG-003</td><td class="p-2.5 font-mono border-r border-slate-200">NLID88291028300</td><td class="p-2.5 border-r border-slate-200">SKU-TAS-RED-OS</td><td class="p-2.5">BIN-C-01-09</td></tr>
             </tbody>
           </table>
         </div>
 
-        <p class="text-xs font-bold text-blue-900 mb-2">Form Input Ulang kandidat (Ketik Presisi Tanpa Copy-Paste):</p>
-        <div class="space-y-2 mb-6">
+        <div class="space-y-3 mb-6">
           <div class="grid grid-cols-3 gap-2">
-            <input type="text" id="ans_pkg1_resi" placeholder="Resi PKG-001" class="border p-2 text-xs rounded">
-            <input type="text" id="ans_pkg1_sku" placeholder="SKU PKG-001" class="border p-2 text-xs rounded">
-            <input type="text" id="ans_pkg1_bin" placeholder="Bin PKG-001" class="border p-2 text-xs rounded">
+            <input type="text" id="ans_pkg1_resi" placeholder="Resi PKG-001" class="border border-slate-300 p-2 text-xs rounded-md">
+            <input type="text" id="ans_pkg1_sku" placeholder="SKU PKG-001" class="border border-slate-300 p-2 text-xs rounded-md">
+            <input type="text" id="ans_pkg1_bin" placeholder="Bin PKG-001" class="border border-slate-300 p-2 text-xs rounded-md">
           </div>
           <div class="grid grid-cols-3 gap-2">
-            <input type="text" id="ans_pkg2_resi" placeholder="Resi PKG-002" class="border p-2 text-xs rounded">
-            <input type="text" id="ans_pkg2_sku" placeholder="SKU PKG-002" class="border p-2 text-xs rounded">
-            <input type="text" id="ans_pkg2_bin" placeholder="Bin PKG-002" class="border p-2 text-xs rounded">
+            <input type="text" id="ans_pkg2_resi" placeholder="Resi PKG-002" class="border border-slate-300 p-2 text-xs rounded-md">
+            <input type="text" id="ans_pkg2_sku" placeholder="SKU PKG-002" class="border border-slate-300 p-2 text-xs rounded-md">
+            <input type="text" id="ans_pkg2_bin" placeholder="Bin PKG-002" class="border border-slate-300 p-2 text-xs rounded-md">
           </div>
           <div class="grid grid-cols-3 gap-2">
-            <input type="text" id="ans_pkg3_resi" placeholder="Resi PKG-003" class="border p-2 text-xs rounded">
-            <input type="text" id="ans_pkg3_sku" placeholder="SKU PKG-003" class="border p-2 text-xs rounded">
-            <input type="text" id="ans_pkg3_bin" placeholder="Bin PKG-003" class="border p-2 text-xs rounded">
+            <input type="text" id="ans_pkg3_resi" placeholder="Resi PKG-003" class="border border-slate-300 p-2 text-xs rounded-md">
+            <input type="text" id="ans_pkg3_sku" placeholder="SKU PKG-003" class="border border-slate-300 p-2 text-xs rounded-md">
+            <input type="text" id="ans_pkg3_bin" placeholder="Bin PKG-003" class="border border-slate-300 p-2 text-xs rounded-md">
           </div>
         </div>
 
-        <button type="button" onclick="goToStep(4)" class="bg-blue-600 text-white font-bold px-6 py-2 rounded text-sm hover:bg-blue-700 float-right">Lanjut Step 4 &rarr;</button>
-        <div class="clear-both"></div>
+        <div class="flex justify-end">
+          <button type="button" onclick="goToStep(4)" class="bg-[#2563eb] text-white font-semibold px-6 py-2.5 rounded-lg text-xs hover:bg-blue-700 transition">
+            Lanjut Step 4 &rarr;
+          </button>
+        </div>
       </div>
 
-      <!-- STEP 4: MODUL ADVANCED EXCEL & LOGIKA DATA -->
-      <div id="step4" class="step-content bg-white p-6 rounded-lg shadow-sm border border-slate-200">
-        <h2 class="text-xl font-bold text-slate-800 mb-2 border-b pb-2">Step 4: Tes Formula & Logika Excel WMS</h2>
+      <!-- STEP 4: EXCEL & LOGIKA -->
+      <div id="step4" class="step-content bg-white p-8 rounded-xl shadow-sm border border-slate-200">
+        <h2 class="text-lg font-bold text-slate-800 mb-4 border-b pb-3">Step 4: Tes Rumus & Logika Excel WMS</h2>
 
         <div class="space-y-4 mb-6">
           <div>
-            <p class="text-xs font-semibold mb-1">1. Di Excel, rumus apa yang paling efisien digunakan untuk mencari harga barang berdasarkan SKU jika kolom acuan berada di sebelah kanan kolom hasil?</p>
-            <select id="ans_ex_formula" class="w-full border rounded p-2 text-xs">
+            <p class="text-xs font-semibold mb-1 text-slate-700">1. Rumus yang paling efisien untuk mencari data acuan di sebelah kiri adalah...</p>
+            <select id="ans_ex_formula" class="w-full border border-slate-300 rounded-md p-2.5 text-xs">
               <option value="">-- Pilih Rumus --</option>
               <option value="VLOOKUP">VLOOKUP</option>
               <option value="XLOOKUP / INDEX MATCH">XLOOKUP / INDEX MATCH</option>
@@ -185,8 +194,8 @@
           </div>
 
           <div>
-            <p class="text-xs font-semibold mb-1">2. Jika data pada Cell A1 berisi Teks: <code>SHP001_KaosPolos_XL</code>. Rumus/Fitur apa yang digunakan untuk memisahkan Teks tersebut menjadi 3 kolom berbeda?</p>
-            <select id="ans_ex_split" class="w-full border rounded p-2 text-xs">
+            <p class="text-xs font-semibold mb-1 text-slate-700">2. Fitur/rumus Excel untuk memisahkan Teks <code>SHP001_KaosPolos_XL</code> menjadi 3 kolom adalah...</p>
+            <select id="ans_ex_split" class="w-full border border-slate-300 rounded-md p-2.5 text-xs">
               <option value="">-- Pilih Jawaban --</option>
               <option value="TEXTSPLIT / Text to Columns">TEXTSPLIT / Text to Columns</option>
               <option value="SUMIF">SUMIF</option>
@@ -195,48 +204,49 @@
           </div>
 
           <div>
-            <p class="text-xs font-semibold mb-1">3. Tuliskan rumus VLOOKUP standar untuk mencari data dari cell A2 pada tabel referensi Sheet2!A:B di kolom ke-2!</p>
-            <input type="text" id="ans_vlookup_text" placeholder="Contoh: =VLOOKUP(A2, Sheet2!A:B, 2, FALSE)" class="w-full border rounded p-2 text-xs font-mono">
+            <p class="text-xs font-semibold mb-1 text-slate-700">3. Tuliskan rumus VLOOKUP standar untuk mencari data dari Cell A2 di Sheet2!A:B kolom ke-2!</p>
+            <input type="text" id="ans_vlookup_text" placeholder="=VLOOKUP(A2, Sheet2!A:B, 2, FALSE)" class="w-full border border-slate-300 rounded-md p-2.5 text-xs font-mono">
           </div>
         </div>
 
-        <button type="button" onclick="goToStep(5)" class="bg-blue-600 text-white font-bold px-6 py-2 rounded text-sm hover:bg-blue-700 float-right">Lanjut Step 5 &rarr;</button>
-        <div class="clear-both"></div>
+        <div class="flex justify-end">
+          <button type="button" onclick="goToStep(5)" class="bg-[#2563eb] text-white font-semibold px-6 py-2.5 rounded-lg text-xs hover:bg-blue-700 transition">
+            Lanjut Step 5 &rarr;
+          </button>
+        </div>
       </div>
 
-      <!-- STEP 5: EMAIL SLA & KIRIM (FINISH) -->
-      <div id="step5" class="step-content bg-white p-6 rounded-lg shadow-sm border border-slate-200">
-        <h2 class="text-xl font-bold text-slate-800 mb-2 border-b pb-2">Step 5: Komunikasi Email Escalation & Submit</h2>
+      <!-- STEP 5: EMAIL SLA & SUBMIT -->
+      <div id="step5" class="step-content bg-white p-8 rounded-xl shadow-sm border border-slate-200">
+        <h2 class="text-lg font-bold text-slate-800 mb-4 border-b pb-3">Step 5: Komunikasi Email Escalation & Submit</h2>
         
-        <p class="text-xs text-slate-600 mb-4"><strong>Skenario Kasus:</strong> Terdapat keterlambatan pengiriman (SLA Overdue) pada 50 paket ekspedisi karena kendala pick-up kurir. Buatlah email singkat dan profesional ke Tim Ekspedisi!</p>
+        <p class="text-xs text-slate-600 mb-4">Buatlah email profesional singkat ke tim ekspedisi mengenai keterlambatan pick-up (SLA Overdue) pada 50 paket!</p>
 
         <div class="space-y-3 mb-6">
           <div>
-            <label class="block text-xs font-bold mb-1">Subjek Email:</label>
-            <input type="text" id="emailSubj" placeholder="Subjek email..." class="w-full border rounded p-2 text-xs">
+            <label class="block text-xs font-bold mb-1 text-slate-700">Subjek Email:</label>
+            <input type="text" id="emailSubj" placeholder="Subjek email..." class="w-full border border-slate-300 rounded-md p-2.5 text-xs">
           </div>
           <div>
-            <label class="block text-xs font-bold mb-1">Isi Pesan Email:</label>
-            <textarea id="emailBody" rows="5" placeholder="Tuliskan isi email penanganan keterlambatan di sini..." class="w-full border rounded p-2 text-xs"></textarea>
+            <label class="block text-xs font-bold mb-1 text-slate-700">Isi Pesan Email:</label>
+            <textarea id="emailBody" rows="5" placeholder="Tuliskan isi email di sini..." class="w-full border border-slate-300 rounded-md p-2.5 text-xs"></textarea>
           </div>
         </div>
 
-        <div class="bg-amber-50 border border-amber-200 p-3 rounded text-xs text-amber-800 mb-4">
-          ⚠️ <strong>Perhatian:</strong> Pastikan seluruh jawaban sudah terisi dengan benar. Begitu menekan tombol submit, jawaban tidak dapat diubah kembali.
-        </div>
-
-        <button type="button" onclick="finishAndGenerateReport()" id="btnSubmit" class="bg-green-600 text-white font-bold px-8 py-3 rounded text-sm hover:bg-green-700 w-full">KIRIM SEMUA JAWABAN & SELESAI</button>
+        <button type="button" onclick="finishAndGenerateReport()" id="btnSubmit" class="bg-emerald-600 text-white font-bold px-8 py-3 rounded-lg text-xs hover:bg-emerald-700 transition w-full shadow">
+          KIRIM SEMUA JAWABAN & SELESAI
+        </button>
       </div>
 
     </form>
   </main>
 
   <script>
-    // URL Web App Apps Script milik kamu
+    // URL Apps Script Milikmu
     const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbx4dyyir6BZIZuflJ3MXNIxERY0kNlu12hUn5p-v8RRBuohWZ1MLfZNCPuJnxJJVjFA/exec"; 
 
     let timerInterval = null;
-    let timeLeft = 1200; // 20 Menit = 1200 Detik
+    let timeLeft = 1200; // 20 Menit
     let fileIjazahBase64 = null;
     let step3StartTime = null;
     let step3EndTime = null;
@@ -247,9 +257,9 @@
     document.addEventListener('cut', e => e.preventDefault());
     document.addEventListener('paste', e => e.preventDefault());
 
-    // Protection: Deteksi Switch Tab
+    // Protection: Tab Switch Warning
     document.addEventListener("visibilitychange", () => {
-      if (document.hidden && document.getElementById('step2').classList.contains('active') || document.getElementById('step3').classList.contains('active')) {
+      if (document.hidden && (document.getElementById('step2').classList.contains('active') || document.getElementById('step3').classList.contains('active'))) {
         document.getElementById('tabWarningModal').classList.remove('hidden');
       }
     });
@@ -258,7 +268,7 @@
       document.getElementById('tabWarningModal').classList.add('hidden');
     }
 
-    // Convert Upload File ke Base64
+    // Process Base64 File Ijazah
     document.getElementById('fileIjazah').addEventListener('change', function(e) {
       const file = e.target.files[0];
       if (file) {
@@ -279,7 +289,7 @@
       }
     });
 
-    // Validasi Ketat Step 1
+    // Validasi Data Diri Ketat (Step 1)
     function validateAndGoStep2() {
       const opsid = document.getElementById('opsid').value.trim();
       const name = document.getElementById('name').value.trim();
@@ -288,15 +298,15 @@
       const education = document.getElementById('education').value;
       const errorDiv = document.getElementById('step1Error');
 
-      // Validasi Tidak Boleh Kosong, Spasi, atau Strip (-)
+      // Cek tidak boleh kosong, spasi, atau strip
       if (!opsid || opsid === '-' || !name || name === '-' || !phone || phone === '-' || !age || age === '-' || !education) {
-        errorDiv.textContent = "⚠️ Semua data diri wajib diisi secara valid (tidak boleh kosong atau '-').";
+        errorDiv.textContent = "⚠️ Semua kolom data diri wajib diisi dengan valid (tidak boleh hanya diisi '-' atau spasi).";
         errorDiv.classList.remove('hidden');
         return;
       }
 
       if (!fileIjazahBase64) {
-        errorDiv.textContent = "⚠️ Anda wajib memilih & mengunggah foto ijazah.";
+        errorDiv.textContent = "⚠️ Wajib mengunggah/memilih foto ijazah terlebih dahulu.";
         errorDiv.classList.remove('hidden');
         return;
       }
@@ -316,7 +326,7 @@
 
         if (timeLeft <= 0) {
           clearInterval(timerInterval);
-          alert("Waktu pengerjaan tes telah habis! Sistem akan mengirimkan jawaban Anda secara otomatis.");
+          alert("Waktu habis! Sistem akan mengirim jawaban secara otomatis.");
           finishAndGenerateReport();
         }
       }, 1000);
@@ -327,19 +337,18 @@
       document.getElementById(`step${stepNumber}`).classList.add('active');
 
       if(stepNumber === 3) {
-        step3StartTime = new Date(); // Catat waktu mulai Step 3 (Typing Test)
+        step3StartTime = new Date();
       } else if(step3StartTime && !step3EndTime && stepNumber > 3) {
-        step3EndTime = new Date(); // Catat waktu selesai Step 3
+        step3EndTime = new Date();
       }
     }
 
-    // Kalkulasi Skor & Submit
+    // Kalkulasi Skor & Transmisi Data
     function finishAndGenerateReport() {
       clearInterval(timerInterval);
       document.getElementById('btnSubmit').disabled = true;
       document.getElementById('btnSubmit').textContent = "Sedang Mengirim Data...";
 
-      // Calculate Typing Speed (WPM)
       let wpm = 0;
       if(step3StartTime && step3EndTime) {
         let durationMinutes = (step3EndTime - step3StartTime) / 60000;
@@ -351,7 +360,6 @@
         wpm = durationMinutes > 0 ? Math.round((totalTypedChars / 5) / durationMinutes) : 0;
       }
 
-      // Scoring Logic Modul
       let scScore = (document.getElementById('ans_os1').value === "B" ? 50 : 0) + (document.getElementById('ans_sc1').value === "Ctrl+Tab" ? 50 : 0);
       let volAns = parseFloat(document.getElementById('ans_volumetric').value);
       let excelScore = (volAns === 4 ? 40 : 0) + (document.getElementById('ans_ex_formula').value.includes("XLOOKUP") ? 30 : 0) + (document.getElementById('ans_ex_split').value.includes("TEXTSPLIT") ? 30 : 0);
@@ -387,18 +395,17 @@
         emailBody: document.getElementById('emailBody').value
       };
 
-      // Kirim Data via Fetch API
       fetch(WEB_APP_URL, {
         method: "POST",
         body: JSON.stringify(payload)
       })
       .then(res => res.json())
       .then(data => {
-        alert("Terima kasih! Hasil tes dan evaluasi Anda telah berhasil dikirim.");
+        alert("Terima kasih! Hasil tes berhasil dikirim.");
         window.location.reload();
       })
       .catch(err => {
-        alert("Terjadi kendala jaringan saat pengiriman. Mohon hubungi panitia HR.");
+        alert("Terjadi masalah koneksi. Mohon hubungi panitia HR.");
         document.getElementById('btnSubmit').disabled = false;
         document.getElementById('btnSubmit').textContent = "KIRIM SEMUA JAWABAN & SELESAI";
       });
