@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
-        body { font-family: 'Inter', sans-serif; }
+        body { font-family: 'Inter', sans-serif; user-select: none; -webkit-user-select: none; }
         .shopee-orange { color: #EE4D2D; }
         .bg-shopee-orange { background-color: #EE4D2D; }
         .border-shopee-orange { border-color: #EE4D2D; }
@@ -61,7 +61,7 @@
             <div class="flex items-center gap-4 text-sm">
                 <div class="bg-slate-800 px-3.5 py-2 rounded-lg border border-slate-700 flex items-center gap-2">
                     <i class="fa-regular fa-clock text-orange-400"></i>
-                    <span class="text-xs">Waktu: <strong id="timer" class="text-yellow-400 font-mono text-sm">00:00</strong></span>
+                    <span class="text-xs">Sisa Waktu: <strong id="timer" class="text-yellow-400 font-mono text-sm">20:00</strong></span>
                 </div>
                 <div class="bg-slate-800 px-3.5 py-2 rounded-lg border border-slate-700">
                     <span id="candidate-badge" class="text-slate-300 font-medium text-xs">Kandidat: <span class="text-white font-semibold" id="header-candidate-name">Belum Diisi</span></span>
@@ -206,6 +206,7 @@
                         <ul class="list-disc pl-5 space-y-1">
                             <li>Tes ini menguji pembedaan karakter kritis (huruf <b>O</b> vs angka <b>0</b>, huruf <b>I</b>/<b>l</b> vs angka <b>1</b>), logika multi-kondisi stok, dan penanganan problem gudang.</li>
                             <li>Dilarang melakukan Copy-Paste pada modul input data. Seluruh karakter wajib diketik manual.</li>
+                            <li>Dilarang berpindah tab browser / aplikasi saat ujian berlangsung.</li>
                         </ul>
                     </div>
 
@@ -743,13 +744,15 @@
     </main>
 
     <script>
-        // MASUKKAN URL GOOGLE APPS SCRIPT WEB APP ANDA DI SINI
+        // GOOGLE APPS SCRIPT WEB APP URL
         const GAS_WEB_APP_URL = "https://script.google.com/macros/s/AKfycbx4dyyir6BZIZuflJ3MXNIxERY0kNlu12hUn5p-v8RRBuohWZ1MLfZNCPuJnxJJVjFA/exec";
 
         var currentStep = 1;
         var timerInterval = null;
+        var totalTimeSeconds = 20 * 60; // 20 Menit Timer
         var secondsElapsed = 0;
         var testStarted = false;
+        var tabSwitchCount = 0;
 
         document.addEventListener('DOMContentLoaded', function() {
             var submitBtn = document.getElementById('btn-submit-test');
@@ -757,29 +760,119 @@
                 submitBtn.addEventListener('click', finishAndGenerateReport);
             }
 
-            const step3Inputs = document.querySelectorAll('#step-3 input');
-            step3Inputs.forEach(input => {
+            // Proteksi Copy & Paste pada Seluruh Halaman Ujian
+            document.addEventListener('contextmenu', e => e.preventDefault());
+            document.addEventListener('copy', e => e.preventDefault());
+            document.addEventListener('cut', e => e.preventDefault());
+            
+            const allInputs = document.querySelectorAll('input, textarea');
+            allInputs.forEach(input => {
                 input.addEventListener('paste', function(e) {
                     e.preventDefault();
-                    alert("⚠️ DILARANG PASTE (CTRL+V)!\n\nUntuk menguji ketelitian input karakter kritis, Anda wajib mengetikkan nomor resi, SKU, dan lokasi bin secara MANUAL.");
+                    alert("⚠️ DILARANG PASTE (CTRL+V)!\n\nSeluruh data input wajib diketik secara MANUAL.");
                 });
+            });
+
+            // Proteksi Pindah Tab / Browser Anti-Curang
+            document.addEventListener('visibilitychange', function() {
+                if (document.hidden && testStarted && currentStep < 6) {
+                    tabSwitchCount++;
+                    if(tabSwitchCount >= 3) {
+                        alert("⚠️ PELANGGARAN SERIUS!\n\nAnda telah berpindah tab sebanyak 3 kali. Tes akan dihentikan dan jawaban otomatis disubmit.");
+                        finishAndGenerateReport();
+                    } else {
+                        alert("⚠️ PERINGATAN ANTI-CURANG (" + tabSwitchCount + "/3)!\n\nDilarang berpindah tab browser/aplikasi saat ujian berlangsung.");
+                    }
+                }
             });
         });
 
+        // Validasi Form Identitas (Step 1)
+        function validateCandidateForm() {
+            var opsid = document.getElementById('cand-opsid').value.trim();
+            var name = document.getElementById('cand-name').value.trim();
+            var age = parseInt(document.getElementById('cand-age').value);
+            var phone = document.getElementById('cand-phone').value.trim();
+            var education = document.getElementById('cand-education').value;
+            var role = document.getElementById('cand-role').value;
+            var ijazahFile = document.getElementById('cand-ijazah').files[0];
+
+            // 1. Validasi OPS ID (huruf/angka saja, TIDAK boleh spasi & TIDAK boleh '-')
+            var opsidRegex = /^[a-zA-Z0-9]+$/;
+            if(!opsidRegex.test(opsid)) {
+                alert("❌ OPS ID tidak valid!\nHanya boleh berisi kombinasi HURUF dan ANGKA (Tanpa Spasi dan Tanpa Tanda Hubung '-'). Contoh: Ops558731");
+                document.getElementById('cand-opsid').focus();
+                return false;
+            }
+
+            // 2. Validasi Nama Lengkap (Hanya huruf & spasi, TIDAK boleh angka, simbol, atau '-')
+            var nameRegex = /^[a-zA-Z\s]+$/;
+            if(!nameRegex.test(name)) {
+                alert("❌ NAMA LENGKAP tidak valid!\nHanya boleh berisi HURUF dan SPASI (Tanpa Angka, Tanpa Tanda Hubung '-', atau Simbol). Contoh: Muhammad Rizky");
+                document.getElementById('cand-name').focus();
+                return false;
+            }
+
+            // 3. Validasi Umur
+            if(isNaN(age) || age < 18 || age > 50) {
+                alert("❌ UMUR tidak valid!\nUmur harus berupa angka antara 18 hingga 50 tahun.");
+                document.getElementById('cand-age').focus();
+                return false;
+            }
+
+            // 4. Validasi No WhatsApp (Hanya angka, minimal 10 digit, TIDAK boleh spasi / '-')
+            var phoneRegex = /^[0-9]{10,15}$/;
+            if(!phoneRegex.test(phone)) {
+                alert("❌ NOMOR WHATSAPP tidak valid!\nHarus berisi ANGKA SAJA (minimal 10-15 digit, tanpa spasi, tanpa tanda '-'). Contoh: 081234567890");
+                document.getElementById('cand-phone').focus();
+                return false;
+            }
+
+            if(!education) {
+                alert("❌ Pilih Pendidikan Terakhir!");
+                document.getElementById('cand-education').focus();
+                return false;
+            }
+
+            if(!role) {
+                alert("❌ Pilih Divisi/Posisi!");
+                document.getElementById('cand-role').focus();
+                return false;
+            }
+
+            if(!ijazahFile) {
+                alert("❌ Lampirkan Foto Ijazah Terakhir!");
+                document.getElementById('cand-ijazah').focus();
+                return false;
+            }
+
+            return true;
+        }
+
         function startTest(e) {
             if(e && e.preventDefault) e.preventDefault();
-            var nameInput = document.getElementById('cand-name');
-            var name = nameInput ? nameInput.value : '';
-            if(!name.trim()) return false;
+            
+            if(!validateCandidateForm()) return false;
 
+            var name = document.getElementById('cand-name').value.trim();
             document.getElementById('header-candidate-name').innerText = name;
             testStarted = true;
 
+            // Timer Countdown 20 Menit
             if(!timerInterval) {
                 timerInterval = setInterval(function() {
+                    totalTimeSeconds--;
                     secondsElapsed++;
-                    var mins = String(Math.floor(secondsElapsed / 60)).padStart(2, '0');
-                    var secs = String(secondsElapsed % 60).padStart(2, '0');
+
+                    if(totalTimeSeconds <= 0) {
+                        clearInterval(timerInterval);
+                        alert("⏱️ Waktu Ujian 20 Menit Telah Habis! Jawaban Anda akan langsung disubmit.");
+                        finishAndGenerateReport();
+                        return;
+                    }
+
+                    var mins = String(Math.floor(totalTimeSeconds / 60)).padStart(2, '0');
+                    var secs = String(totalTimeSeconds % 60).padStart(2, '0');
                     document.getElementById('timer').innerText = mins + ':' + secs;
                 }, 1000);
             }
@@ -890,10 +983,10 @@
             var finalWeighted = Math.round((scScore * 0.20) + (typeScore * 0.25) + (excelScore * 0.35) + (emailScore * 0.20));
 
             // Populate Metadata Pelamar
-            var opsid = document.getElementById('cand-opsid').value;
-            var name = document.getElementById('cand-name').value;
+            var opsid = document.getElementById('cand-opsid').value.trim();
+            var name = document.getElementById('cand-name').value.trim();
             var age = document.getElementById('cand-age').value;
-            var phone = document.getElementById('cand-phone').value;
+            var phone = document.getElementById('cand-phone').value.trim();
             var education = document.getElementById('cand-education').value;
             var role = document.getElementById('cand-role').value;
             
