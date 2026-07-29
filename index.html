@@ -198,7 +198,7 @@
                         <ul class="list-disc pl-5 space-y-1">
                             <li>Tes ini menguji pembedaan karakter kritis (huruf <b>O</b> vs angka <b>0</b>, huruf <b>I</b>/<b>l</b> vs angka <b>1</b>, <b>5</b> vs <b>S</b>, <b>2</b> vs <b>Z</b>), logika multi-kondisi stok, kalkulasi kerugian asset, dan penanganan problem gudang.</li>
                             <li>Dilarang melakukan Copy-Paste pada modul input data. Seluruh karakter wajib diketik manual.</li>
-                            <li>Dilarang berpindah tab browser / aplikasi saat ujian berlangsung. Sisa waktu pengerjaan total 25 menit.</li>
+                            <li>Dilarang berpindah tab browser / aplikasi saat ujian berlangsung. Toleransi perpindahan tab maksimal 1x.</li>
                         </ul>
                     </div>
 
@@ -789,6 +789,8 @@
         let secondsElapsed = 0;
         let testStarted = false;
         let tabSwitchCount = 0;
+        const MAX_ALLOWED_SWITCHES = 2; // Pindah tab ke-2x langsung diskualifikasi paksa
+        let isSubmitted = false;
 
         document.addEventListener('DOMContentLoaded', function() {
             const submitBtn = document.getElementById('btn-submit-test');
@@ -808,18 +810,85 @@
                 });
             });
 
+            // ==========================================
+            // LOGIKA DETEKSI SWITCH TAB / LEAVE WINDOW
+            // ==========================================
             document.addEventListener('visibilitychange', function() {
-                if (document.hidden && testStarted && currentStep < 6) {
+                if (document.hidden && testStarted && !isSubmitted && currentStep < 6) {
                     tabSwitchCount++;
-                    if(tabSwitchCount >= 3) {
-                        alert("⚠️ PELANGGARAN SERIUS!\n\nAnda telah berpindah tab sebanyak 3 kali. Tes dihentikan dan jawaban otomatis disubmit.");
-                        finishAndGenerateReport();
+                    if(tabSwitchCount < MAX_ALLOWED_SWITCHES) {
+                        alert("⚠️ PERINGATAN BUKAN HALAMAN UJIAN!\n\nAnda terdeteksi meninggalkan tab/jendela ujian (" + tabSwitchCount + "/" + (MAX_ALLOWED_SWITCHES - 1) + ").\n\nJika Anda melakukan switch tab sekali lagi, sistem akan menghentikan ujian dan menandai hasil Anda GAGAL/DISKUALIFIKASI.");
                     } else {
-                        alert("⚠️ PERINGATAN ANTI-CURANG (" + tabSwitchCount + "/3)!\n\nDilarang berpindah tab browser/aplikasi saat ujian berlangsung.");
+                        alert("❌ DISKUALIFIKASI OTOMATIS!\n\nAnda telah melebihi batas izin keluar dari tab ujian. Sistem menghentikan pengerjaan dan mengirimkan laporan ke HR.");
+                        executeAutoSubmitPenalti();
                     }
                 }
             });
         });
+
+        // ==========================================
+        // AUTO SUBMIT PAKSA SAAT DISKUALIFIKASI
+        // ==========================================
+        async function executeAutoSubmitPenalti() {
+            isSubmitted = true;
+            if(timerInterval) clearInterval(timerInterval);
+
+            const opsid = document.getElementById('cand-opsid').value.trim() || "OPS-PELANGGARAN";
+            const name = document.getElementById('cand-name').value.trim() || "Kandidat (Terindikasi Kecurangan)";
+            const age = document.getElementById('cand-age').value || "-";
+            const phone = document.getElementById('cand-phone').value.trim() || "-";
+            const education = document.getElementById('cand-education').value || "-";
+            const role = document.getElementById('cand-role').value || "Daily Worker Admin";
+
+            const fileInput = document.getElementById('cand-ijazah');
+            let fileIjazahData = null;
+            let fileIjazahName = "Tidak Ada";
+            if(fileInput && fileInput.files[0]) {
+                fileIjazahName = fileInput.files[0].name;
+                fileIjazahData = await fileToBase64(fileInput.files[0]);
+            }
+
+            const payload = {
+                opsid: opsid,
+                name: name,
+                age: age,
+                phone: phone,
+                education: education,
+                role: role,
+                fileIjazahName: fileIjazahName,
+                fileIjazahData: fileIjazahData,
+                timeTaken: "DIHENTIKAN PAKSA",
+                finalWeighted: 0,
+                gradeText: "GAGAL / DISKUALIFIKASI (Melanggar Pindah Tab)",
+                scScore: 0,
+                typeScore: 0,
+                excelScore: 0,
+                emailScore: 0,
+                osEvalText: "TERDETEKSI KECURANGAN: Pindah tab " + tabSwitchCount + "x melebihi batas.",
+                typeEvalText: "Dibatalkan oleh sistem.",
+                excelEvalText: "Dibatalkan oleh sistem.",
+                emailEvalText: "Dibatalkan oleh sistem."
+            };
+
+            // Render Tampilan Diskualifikasi
+            document.getElementById('res-name').innerText = "[" + opsid + "] " + name;
+            document.getElementById('res-phone').innerText = phone + " (" + age + " thn)";
+            document.getElementById('res-role').innerText = role + " - " + education;
+            document.getElementById('res-time-taken').innerText = "DIHENTIKAN PAKSA";
+            document.getElementById('res-sc-score').innerText = '0 / 100';
+            document.getElementById('res-type-score').innerText = '0 / 100';
+            document.getElementById('res-excel-score').innerText = '0 / 100';
+            document.getElementById('res-final-score').innerText = '0%';
+            document.getElementById('res-grade-badge').innerText = payload.gradeText;
+
+            document.getElementById('eval-os-text').innerText = payload.osEvalText;
+            document.getElementById('eval-type-text').innerText = payload.typeEvalText;
+            document.getElementById('eval-excel-text').innerText = payload.excelEvalText;
+            document.getElementById('eval-email-text').innerText = payload.emailEvalText;
+
+            sendResultsToGoogleScript(payload);
+            switchStep(6);
+        }
 
         function validateCandidateForm() {
             const opsid = document.getElementById('cand-opsid').value.trim();
@@ -934,6 +1003,9 @@
         }
 
         async function finishAndGenerateReport() {
+            if(isSubmitted) return;
+            isSubmitted = true;
+
             const submitBtn = document.getElementById('btn-submit-test');
             const submitText = document.getElementById('btn-submit-text');
             if(submitBtn) submitBtn.disabled = true;
