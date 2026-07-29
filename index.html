@@ -941,7 +941,6 @@
 
             if(timerInterval) clearInterval(timerInterval);
 
-            // Modul 1 Scoring (10 Soal = 10 Poin Masing-Masing)
             let scScore = 0;
             if(document.getElementById('sc-1').value === 'Ctrl+F') scScore += 10;
             if(document.getElementById('sc-2').value === 'Alt+Tab') scScore += 10;
@@ -954,7 +953,6 @@
             if(document.getElementById('os-2').value === '.xlsx / .csv') scScore += 10;
             if(document.getElementById('os-3').value === 'Manifest_SPX_Cikarang_22072026') scScore += 10;
 
-            // Modul 2 Scoring (3 Paket x 5 Field = 15 Cell Point Max)
             let typeCorrect = 0;
             const resiAnswers = [
                 { awb: 'SPXID001O998-XL', sku: 'SHP-FSH-001O-BLK', bin: 'BIN-A01-02-O', courier: 'shopee', qty: '12' },
@@ -979,14 +977,6 @@
 
             const typeScore = Math.round((typeCorrect / 15) * 100);
 
-            // Modul 3 Scoring (3 SKU: Stok & Status + Total Nilai Damaged + 3 Rumus = 10 Poin Max)
-            /* 
-              Calculations:
-              1. ELEC-POWERBANK: 80 + 30 - 85 - 10 = 15 -> CRITICAL RESTOCK
-              2. BEAUTY-SERUM: 150 + 80 - 110 - 5 = 115 -> OVERSTOCK
-              3. FASH-T-SHIRT: 40 + 10 - 38 - 2 = 10 -> CRITICAL RESTOCK
-              Damaged total: (10*120000) + (5*45000) + (2*50000) = 1,200,000 + 225,000 + 100,000 = 1,525,000
-            */
             let excelCorrect = 0;
             if(document.getElementById('ex-stok-1').value == 15) excelCorrect++;
             if(document.getElementById('ex-status-1').value === 'CRITICAL RESTOCK') excelCorrect++;
@@ -1003,7 +993,6 @@
 
             const excelScore = Math.round((excelCorrect / 10) * 100);
 
-            // Modul 4 Scoring (Case Study & Email)
             const emailSubj = document.getElementById('email-subject').value.trim();
             const emailBody = document.getElementById('email-body').value.trim();
             const case1 = document.getElementById('case-q1').value;
