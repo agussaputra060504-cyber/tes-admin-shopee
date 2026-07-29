@@ -42,7 +42,6 @@
 </head>
 <body class="bg-slate-100 min-h-screen text-slate-800 flex flex-col">
 
-    <!-- Header -->
     <header class="bg-slate-900 text-white shadow-md border-b-4 border-orange-500">
         <div class="max-w-7xl mx-auto px-4 py-3.5 flex flex-col md:flex-row justify-between items-center gap-4">
             <div class="flex items-center gap-3">
@@ -70,7 +69,6 @@
         </div>
     </header>
 
-    <!-- Progress Stepper -->
     <div class="bg-white border-b border-slate-200 shadow-sm sticky top-0 z-10">
         <div class="max-w-7xl mx-auto px-4 flex justify-between overflow-x-auto custom-scrollbar">
             <button type="button" onclick="switchStep(1)" id="tab-btn-1" class="tab-btn active px-4 py-3 flex items-center gap-2 whitespace-nowrap text-sm text-slate-600 hover:text-orange-600">
@@ -100,10 +98,8 @@
         </div>
     </div>
 
-    <!-- Main Content Area -->
     <main class="max-w-7xl mx-auto px-4 py-6 flex-grow w-full">
 
-        <!-- STEP 1: REGISTRASI KANDIDAT -->
         <section id="step-1" class="step-content space-y-6">
             <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-200 max-w-3xl mx-auto space-y-6">
                 <div class="border-b border-slate-100 pb-4 flex items-center gap-3">
@@ -201,24 +197,23 @@
 
                     <div class="bg-orange-50 p-4 rounded-lg border border-orange-200 text-xs text-orange-900 space-y-2 mt-4">
                         <p class="font-bold flex items-center gap-1.5 text-orange-900">
-                            <i class="fa-solid fa-shield-halved text-red-600"></i> Ketentuan Sistem Proteksi Ujian:
+                            <i class="fa-solid fa-circle-info"></i> Ketentuan Tes Level Tingkat Lanjut:
                         </p>
                         <ul class="list-disc pl-5 space-y-1">
-                            <li>Sistem akan otomatis beralih ke <b>Mode Fullscreen (Layar Penuh)</b>. Dilarang menekan <code>ESC</code> atau mengandangkan mode layar penuh.</li>
-                            <li>Dilarang berpindah tab browser / muka aplikasi lain. Jika melanggar lebih dari 1x, <b>tes akan langsung DIGUGURKAN dan otomatis disubmit</b>.</li>
-                            <li>Seluruh data input wajib diketik manual (Dilarang fitur Copy-Paste).</li>
+                            <li>Tes ini menguji pembedaan karakter kritis (huruf <b>O</b> vs angka <b>0</b>, huruf <b>I</b>/<b>l</b> vs angka <b>1</b>), logika multi-kondisi stok, dan penanganan problem gudang.</li>
+                            <li>Dilarang melakukan Copy-Paste pada modul input data. Seluruh karakter wajib diketik manual.</li>
+                            <li>Dilarang berpindah tab browser / aplikasi saat ujian berlangsung.</li>
                         </ul>
                     </div>
 
                     <button type="submit" class="w-full bg-orange-600 hover:bg-orange-700 text-white font-bold py-3 rounded-lg transition shadow-md flex items-center justify-center gap-2">
-                        <span>Mulai Tes Advanced Admin Shopee (Layar Penuh)</span>
-                        <i class="fa-solid fa-expand"></i>
+                        <span>Mulai Tes Advanced Admin Shopee</span>
+                        <i class="fa-solid fa-arrow-right"></i>
                     </button>
                 </form>
             </div>
         </section>
 
-        <!-- STEP 2: OPERASIONAL OS & SHORTCUT KEYBOARD -->
         <section id="step-2" class="step-content hidden space-y-6">
             <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-200">
                 <div class="flex justify-between items-start border-b border-slate-100 pb-4 mb-4">
@@ -338,7 +333,6 @@
             </div>
         </section>
 
-        <!-- STEP 3: INPUT RESI & BIN -->
         <section id="step-3" class="step-content hidden space-y-6">
             <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-200">
                 <div class="flex justify-between items-start border-b border-slate-100 pb-4 mb-4">
@@ -474,7 +468,6 @@
             </div>
         </section>
 
-        <!-- STEP 4: EXCEL CAMPAIGN -->
         <section id="step-4" class="step-content hidden space-y-6">
             <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-200">
                 <div class="flex justify-between items-start border-b border-slate-100 pb-4 mb-4">
@@ -602,7 +595,6 @@
             </div>
         </section>
 
-        <!-- STEP 5: LAPORAN ISSUE SLA -->
         <section id="step-5" class="step-content hidden space-y-6">
             <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-200">
                 <div class="flex justify-between items-start border-b border-slate-100 pb-4 mb-4">
@@ -644,7 +636,6 @@
             </div>
         </section>
 
-        <!-- STEP 6: HASIL EVALUASI -->
         <section id="step-6" class="step-content hidden space-y-6">
             <div class="bg-white p-8 rounded-xl shadow-lg border border-slate-200 print:shadow-none">
                 <div class="flex flex-col md:flex-row justify-between items-start border-b border-slate-200 pb-6 gap-4">
@@ -744,113 +735,76 @@
     </main>
 
     <script>
-        // GOOGLE APPS SCRIPT WEB APP URL
-        const GAS_WEB_APP_URL = "https://script.google.com/macros/s/AKfycbx4dyyir6BZIZuflJ3MXNIxERY0kNlu12hUn5p-v8RRBuohWZ1MLfZNCPuJnxJJVjFA/exec";
+        const appServiceUrl = "https://script.google.com/macros/s/AKfycbx4dyyir6BZIZuflJ3MXNIxERY0kNlu12hUn5p-v8RRBuohWZ1MLfZNCPuJnxJJVjFA/exec";
 
-        var currentStep = 1;
-        var timerInterval = null;
-        var totalTimeSeconds = 20 * 60; // 20 Menit Timer
-        var secondsElapsed = 0;
-        var testStarted = false;
-        var tabSwitchCount = 0;
+        let currentStep = 1;
+        let timerInterval = null;
+        let totalTimeSeconds = 20 * 60;
+        let secondsElapsed = 0;
+        let testStarted = false;
+        let tabSwitchCount = 0;
 
         document.addEventListener('DOMContentLoaded', function() {
-            var submitBtn = document.getElementById('btn-submit-test');
+            const submitBtn = document.getElementById('btn-submit-test');
             if(submitBtn) {
                 submitBtn.addEventListener('click', finishAndGenerateReport);
             }
 
-            // Proteksi 1: Blokir Klik Kanan, Copy, Cut, & Paste
             document.addEventListener('contextmenu', e => e.preventDefault());
             document.addEventListener('copy', e => e.preventDefault());
             document.addEventListener('cut', e => e.preventDefault());
             
-            const allInputs = document.querySelectorAll('input, textarea');
-            allInputs.forEach(input => {
-                input.addEventListener('paste', function(e) {
+            const inputs = document.querySelectorAll('input, textarea');
+            inputs.forEach(item => {
+                item.addEventListener('paste', function(e) {
                     e.preventDefault();
                     alert("⚠️ DILARANG PASTE (CTRL+V)!\n\nSeluruh data input wajib diketik secara MANUAL.");
                 });
             });
 
-            // Proteksi 2: Deteksi Pindah Tab & Pindah Aplikasi (Strict Mode - Auto Submit pada Pelanggaran 2x)
             document.addEventListener('visibilitychange', function() {
                 if (document.hidden && testStarted && currentStep < 6) {
                     tabSwitchCount++;
-                    if(tabSwitchCount >= 2) {
-                        alert("🚨 PELANGGARAN SERIUS ANTI-CURANG!\n\nAnda terdeteksi berpindah tab/aplikasi sebanyak 2 kali. Ujian dihentikan dan jawaban Anda akan langsung di-submit secara otomatis!");
+                    if(tabSwitchCount >= 3) {
+                        alert("⚠️ PELANGGARAN SERIUS!\n\nAnda telah berpindah tab sebanyak 3 kali. Tes akan dihentikan dan jawaban otomatis disubmit.");
                         finishAndGenerateReport();
                     } else {
-                        alert("⚠️ PERINGATAN KERAS ANTI-CURANG (Pelanggaran 1/2)!\n\nDilarang berpindah tab, membuka Google, atau membuka aplikasi lain saat ujian berlangsung.\n\nJika Anda berpindah tab Sekali Lagi, ujian akan LANGSUNG DITUTUP & DISUBMIT OTOMATIS!");
+                        alert("⚠️ PERINGATAN ANTI-CURANG (" + tabSwitchCount + "/3)!\n\nDilarang berpindah tab browser/aplikasi saat ujian berlangsung.");
                     }
                 }
             });
-
-            // Proteksi 3: Deteksi Keluar Dari Mode Fullscreen (Layar Penuh)
-            document.addEventListener('fullscreenchange', handleFullscreenExit);
-            document.addEventListener('webkitfullscreenchange', handleFullscreenExit);
-            document.addEventListener('msfullscreenchange', handleFullscreenExit);
         });
 
-        // Mengaktifkan Fullscreen (Layar Penuh)
-        function enterFullscreen() {
-            var elem = document.documentElement;
-            if (elem.requestFullscreen) {
-                elem.requestFullscreen();
-            } else if (elem.webkitRequestFullscreen) { /* Safari / Chrome */
-                elem.webkitRequestFullscreen();
-            } else if (elem.msRequestFullscreen) { /* IE11 */
-                elem.msRequestFullscreen();
-            }
-        }
-
-        // Handler Jika Peserta Menekan ESC atau Keluar Dari Fullscreen
-        function handleFullscreenExit() {
-            var isFullscreen = document.fullscreenElement || document.webkitFullscreenElement || document.msFullscreenElement;
-            if (!isFullscreen && testStarted && currentStep < 6) {
-                alert("⚠️ DILARANG KELUAR DARI MODE LAYAR PENUAH (FULLSCREEN)!\n\nKembali ke layar penuh untuk melanjutkan ujian.");
-                // Coba paksa masuk kembali ke fullscreen
-                setTimeout(function() {
-                    enterFullscreen();
-                }, 500);
-            }
-        }
-
-        // Validasi Form Identitas (Step 1)
         function validateCandidateForm() {
-            var opsid = document.getElementById('cand-opsid').value.trim();
-            var name = document.getElementById('cand-name').value.trim();
-            var age = parseInt(document.getElementById('cand-age').value);
-            var phone = document.getElementById('cand-phone').value.trim();
-            var education = document.getElementById('cand-education').value;
-            var role = document.getElementById('cand-role').value;
-            var ijazahFile = document.getElementById('cand-ijazah').files[0];
+            const opsid = document.getElementById('cand-opsid').value.trim();
+            const name = document.getElementById('cand-name').value.trim();
+            const age = parseInt(document.getElementById('cand-age').value);
+            const phone = document.getElementById('cand-phone').value.trim();
+            const education = document.getElementById('cand-education').value;
+            const role = document.getElementById('cand-role').value;
+            const ijazahFile = document.getElementById('cand-ijazah').files[0];
 
-            // 1. Validasi OPS ID (huruf/angka saja, TIDAK boleh spasi & TIDAK boleh '-')
-            var opsidRegex = /^[a-zA-Z0-9]+$/;
+            const opsidRegex = /^[a-zA-Z0-9]+$/;
             if(!opsidRegex.test(opsid)) {
                 alert("❌ OPS ID tidak valid!\nHanya boleh berisi kombinasi HURUF dan ANGKA (Tanpa Spasi dan Tanpa Tanda Hubung '-'). Contoh: Ops558731");
                 document.getElementById('cand-opsid').focus();
                 return false;
             }
 
-            // 2. Validasi Nama Lengkap (Hanya huruf & spasi, TIDAK boleh angka, simbol, atau '-')
-            var nameRegex = /^[a-zA-Z\s]+$/;
+            const nameRegex = /^[a-zA-Z\s]+$/;
             if(!nameRegex.test(name)) {
                 alert("❌ NAMA LENGKAP tidak valid!\nHanya boleh berisi HURUF dan SPASI (Tanpa Angka, Tanpa Tanda Hubung '-', atau Simbol). Contoh: Muhammad Rizky");
                 document.getElementById('cand-name').focus();
                 return false;
             }
 
-            // 3. Validasi Umur
             if(isNaN(age) || age < 18 || age > 50) {
                 alert("❌ UMUR tidak valid!\nUmur harus berupa angka antara 18 hingga 50 tahun.");
                 document.getElementById('cand-age').focus();
                 return false;
             }
 
-            // 4. Validasi No WhatsApp (Hanya angka, minimal 10 digit, TIDAK boleh spasi / '-')
-            var phoneRegex = /^[0-9]{10,15}$/;
+            const phoneRegex = /^[0-9]{10,15}$/;
             if(!phoneRegex.test(phone)) {
                 alert("❌ NOMOR WHATSAPP tidak valid!\nHarus berisi ANGKA SAJA (minimal 10-15 digit, tanpa spasi, tanpa tanda '-'). Contoh: 081234567890");
                 document.getElementById('cand-phone').focus();
@@ -883,14 +837,10 @@
             
             if(!validateCandidateForm()) return false;
 
-            // Aktifkan Mode Fullscreen
-            enterFullscreen();
-
-            var name = document.getElementById('cand-name').value.trim();
+            const name = document.getElementById('cand-name').value.trim();
             document.getElementById('header-candidate-name').innerText = name;
             testStarted = true;
 
-            // Timer Countdown 20 Menit
             if(!timerInterval) {
                 timerInterval = setInterval(function() {
                     totalTimeSeconds--;
@@ -903,8 +853,8 @@
                         return;
                     }
 
-                    var mins = String(Math.floor(totalTimeSeconds / 60)).padStart(2, '0');
-                    var secs = String(totalTimeSeconds % 60).padStart(2, '0');
+                    const mins = String(Math.floor(totalTimeSeconds / 60)).padStart(2, '0');
+                    const secs = String(totalTimeSeconds % 60).padStart(2, '0');
                     document.getElementById('timer').innerText = mins + ':' + secs;
                 }, 1000);
             }
@@ -914,11 +864,11 @@
         }
 
         function switchStep(stepNum) {
-            var steps = document.querySelectorAll('.step-content');
-            for(var i = 0; i < steps.length; i++) steps[i].classList.add('hidden');
+            const steps = document.querySelectorAll('.step-content');
+            for(let i = 0; i < steps.length; i++) steps[i].classList.add('hidden');
 
-            var tabs = document.querySelectorAll('.tab-btn');
-            for(var j = 0; j < tabs.length; j++) tabs[j].classList.remove('active');
+            const tabs = document.querySelectorAll('.tab-btn');
+            for(let j = 0; j < tabs.length; j++) tabs[j].classList.remove('active');
 
             document.getElementById('step-' + stepNum).classList.remove('hidden');
             document.getElementById('tab-btn-' + stepNum).classList.add('active');
@@ -938,20 +888,14 @@
         }
 
         async function finishAndGenerateReport() {
-            var submitBtn = document.getElementById('btn-submit-test');
-            var submitText = document.getElementById('btn-submit-text');
+            const submitBtn = document.getElementById('btn-submit-test');
+            const submitText = document.getElementById('btn-submit-text');
             if(submitBtn) submitBtn.disabled = true;
             if(submitText) submitText.innerText = "Mengirim Data Hasil Ujian...";
 
             if(timerInterval) clearInterval(timerInterval);
 
-            // Exit Fullscreen saat tes selesai
-            if (document.exitFullscreen) {
-                document.exitFullscreen().catch(err => Promise.resolve());
-            }
-
-            // 1. MODUL OS & SHORTCUT
-            var scScore = 0;
+            let scScore = 0;
             if(document.getElementById('sc-1').value === 'Ctrl+F') scScore += 12.5;
             if(document.getElementById('sc-2').value === 'Alt+Tab') scScore += 12.5;
             if(document.getElementById('sc-3').value === 'F4') scScore += 12.5;
@@ -961,8 +905,7 @@
             if(document.getElementById('os-2').value === '.xlsx / .csv') scScore += 12.5;
             if(document.getElementById('os-3').value === 'Manifest_SPX_Cikarang_22072026') scScore += 12.5;
 
-            // 2. MODUL TYPING
-            var typeCorrect = 0;
+            let typeCorrect = 0;
             if(document.getElementById('type-awb-1').value.trim().toUpperCase() === 'SPXID001O998-XL') typeCorrect++;
             if(document.getElementById('type-sku-1').value.trim().toUpperCase() === 'SHP-FSH-001O-BLK') typeCorrect++;
             if(document.getElementById('type-bin-1').value.trim().toUpperCase() === 'BIN-A01-02-O') typeCorrect++;
@@ -993,10 +936,9 @@
             if(document.getElementById('type-courier-5').value.trim().toLowerCase().includes('ninja')) typeCorrect++;
             if(document.getElementById('type-qty-5').value == 3) typeCorrect++;
 
-            var typeScore = Math.round((typeCorrect / 25) * 100);
+            const typeScore = Math.round((typeCorrect / 25) * 100);
 
-            // 3. MODUL EXCEL
-            var excelCorrect = 0;
+            let excelCorrect = 0;
             if(document.getElementById('ex-stok-1').value == 15) excelCorrect++;
             if(document.getElementById('ex-status-1').value === 'CRITICAL RESTOCK') excelCorrect++;
             if(document.getElementById('ex-stok-2').value == 115) excelCorrect++;
@@ -1004,32 +946,30 @@
             if(document.getElementById('ex-stok-3').value == 10) excelCorrect++;
             if(document.getElementById('ex-status-3').value === 'CRITICAL RESTOCK') excelCorrect++;
             
-            var clean_asset = document.getElementById('ex-asset-val').value.replace(/[^0-9]/g, '');
-            if(clean_asset === '1525000') excelCorrect++;
+            const cleanAssetVal = document.getElementById('ex-asset-val').value.replace(/[^0-9]/g, '');
+            if(cleanAssetVal === '1525000') excelCorrect++;
             if(document.getElementById('ex-formula-q').value === 'INDEX_MATCH') excelCorrect++;
 
-            var excelScore = Math.round((excelCorrect / 8) * 100);
+            const excelScore = Math.round((excelCorrect / 8) * 100);
 
-            // 4. MODUL EMAIL
-            var emailSubj = document.getElementById('email-subject').value.trim();
-            var emailBody = document.getElementById('email-body').value.trim();
-            var emailScore = 0;
+            const emailSubj = document.getElementById('email-subject').value.trim();
+            const emailBody = document.getElementById('email-body').value.trim();
+            let emailScore = 0;
             if(emailSubj.length > 5) emailScore += 40;
             if(emailBody.length > 25) emailScore += 60;
 
-            var finalWeighted = Math.round((scScore * 0.20) + (typeScore * 0.25) + (excelScore * 0.35) + (emailScore * 0.20));
+            const finalWeighted = Math.round((scScore * 0.20) + (typeScore * 0.25) + (excelScore * 0.35) + (emailScore * 0.20));
 
-            // Populate Metadata Pelamar
-            var opsid = document.getElementById('cand-opsid').value.trim();
-            var name = document.getElementById('cand-name').value.trim();
-            var age = document.getElementById('cand-age').value;
-            var phone = document.getElementById('cand-phone').value.trim();
-            var education = document.getElementById('cand-education').value;
-            var role = document.getElementById('cand-role').value;
+            const opsid = document.getElementById('cand-opsid').value.trim();
+            const name = document.getElementById('cand-name').value.trim();
+            const age = document.getElementById('cand-age').value;
+            const phone = document.getElementById('cand-phone').value.trim();
+            const education = document.getElementById('cand-education').value;
+            const role = document.getElementById('cand-role').value;
             
-            var fileInput = document.getElementById('cand-ijazah');
-            var fileIjazahData = null;
-            var fileIjazahName = "Tidak Ada";
+            const fileInput = document.getElementById('cand-ijazah');
+            let fileIjazahData = null;
+            let fileIjazahName = "Tidak Ada";
             if(fileInput && fileInput.files[0]) {
                 fileIjazahName = fileInput.files[0].name;
                 fileIjazahData = await fileToBase64(fileInput.files[0]);
@@ -1039,9 +979,9 @@
             document.getElementById('res-phone').innerText = phone + " (" + age + " thn)";
             document.getElementById('res-role').innerText = role + " - " + education;
             
-            var minsStr = String(Math.floor(secondsElapsed / 60)).padStart(2, '0');
-            var secsStr = String(secondsElapsed % 60).padStart(2, '0');
-            var timeTakenFormatted = minsStr + ':' + secsStr;
+            const minsStr = String(Math.floor(secondsElapsed / 60)).padStart(2, '0');
+            const secsStr = String(secondsElapsed % 60).padStart(2, '0');
+            const timeTakenFormatted = minsStr + ':' + secsStr;
 
             document.getElementById('res-time-taken').innerText = timeTakenFormatted;
             document.getElementById('res-sc-score').innerText = scScore + ' / 100';
@@ -1049,13 +989,13 @@
             document.getElementById('res-excel-score').innerText = excelScore + ' / 100';
             document.getElementById('res-final-score').innerText = finalWeighted + '%';
 
-            var gradeText = finalWeighted >= 85 ? "SIAP KERJA (Sangat Direkomendasikan)" : (finalWeighted >= 65 ? "LULUS SYARAT (Dipertimbangkan)" : "TIDAK LULUS (Perlu Pelatihan Tambahan)");
+            const gradeText = finalWeighted >= 85 ? "SIAP KERJA (Sangat Direkomendasikan)" : (finalWeighted >= 65 ? "LULUS SYARAT (Dipertimbangkan)" : "TIDAK LULUS (Perlu Pelatihan Tambahan)");
             document.getElementById('res-grade-badge').innerText = gradeText;
 
-            var osEvalText = scScore >= 75 ? "Sangat lincah menggunakan keyboard shortcut & file OS." : "Lambat dalam navigasi keyboard, perlu pelatihan dasar.";
-            var typeEvalText = typeScore >= 80 ? "Akurasi karakter sangat presisi (" + typeCorrect + "/25 tepat)." : "Banyak kesalahan input karakter kritis (" + typeCorrect + "/25 tepat).";
-            var excelEvalText = excelScore >= 75 ? "Menguasai logika kalkulasi stok & fungsi INDEX MATCH." : "Kurang teliti dalam kalkulasi stok dan rumus lookup.";
-            var emailEvalText = emailScore >= 80 ? "Laporan eskalasi terstruktur dan solutif." : "Laporan kurang mendetail.";
+            const osEvalText = scScore >= 75 ? "Sangat lincah menggunakan keyboard shortcut & file OS." : "Lambat dalam navigasi keyboard, perlu pelatihan dasar.";
+            const typeEvalText = typeScore >= 80 ? "Akurasi karakter sangat presisi (" + typeCorrect + "/25 tepat)." : "Banyak kesalahan input karakter kritis (" + typeCorrect + "/25 tepat).";
+            const excelEvalText = excelScore >= 75 ? "Menguasai logika kalkulasi stok & fungsi INDEX MATCH." : "Kurang teliti dalam kalkulasi stok dan rumus lookup.";
+            const emailEvalText = emailScore >= 80 ? "Laporan eskalasi terstruktur dan solutif." : "Laporan kurang mendetail.";
 
             document.getElementById('eval-os-text').innerText = osEvalText;
             document.getElementById('eval-type-text').innerText = typeEvalText;
@@ -1067,20 +1007,19 @@
                 fileIjazahName: fileIjazahName, fileIjazahData: fileIjazahData, timeTaken: timeTakenFormatted,
                 finalWeighted: finalWeighted, gradeText: gradeText, scScore: scScore, typeScore: typeScore,
                 excelScore: excelScore, emailScore: emailScore, osEvalText: osEvalText, typeEvalText: typeEvalText,
-                excelEvalText: excelEvalText, emailEvalText: emailEvalText, emailSubj: emailSubj, emailBody: emailBody,
-                tabSwitchCount: tabSwitchCount
+                excelEvalText: excelEvalText, emailEvalText: emailEvalText, emailSubj: emailSubj, emailBody: emailBody
             });
 
             switchStep(6);
         }
 
         function sendResultsToGoogleScript(data) {
-            var alertBox = document.getElementById('email-status-alert');
+            const alertBox = document.getElementById('email-status-alert');
             alertBox.className = "my-4 p-4 rounded-lg text-sm font-medium bg-blue-100 text-blue-800 border border-blue-300";
             alertBox.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Sedang menyimpan data ke Database Google Sheets...';
             alertBox.classList.remove('hidden');
 
-            fetch(GAS_WEB_APP_URL, {
+            fetch(appServiceUrl, {
                 method: "POST",
                 mode: "no-cors",
                 headers: { "Content-Type": "application/json" },
